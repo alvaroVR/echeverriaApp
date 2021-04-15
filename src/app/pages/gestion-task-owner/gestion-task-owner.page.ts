@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {GestionTaskOwnerService} from "../../services/gestion-task-owner.service";
 
 @Component({
   selector: 'app-gestion-task-owner',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GestionTaskOwnerPage implements OnInit {
 
-  constructor() { }
+  constructor(public gestionService: GestionTaskOwnerService) {
+  }
 
   ngOnInit() {
+    this.prueba()
+  }
+
+  prueba() {
+    const request = {
+      userId: 'cbernabe',
+      companyIdUsr: '90844000-5'
+    };
+    this.gestionService.getdettaskresponsable(request).subscribe(response => {
+      debugger
+    })
   }
 
 }

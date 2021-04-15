@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
 import {Storage} from "@ionic/storage";
+import {HttpHeaders} from "@angular/common/http";
+import {NavController} from "@ionic/angular";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +13,7 @@ export class UsuarioService {
   user: string = null;
   company: string = null;
 
-  constructor(private api: ApiService, private storage: Storage) {
+  constructor(private api: ApiService, private storage: Storage, private authService: AuthService) {
   }
 
   public login(user: string, password: string, company: string) {
@@ -19,7 +22,7 @@ export class UsuarioService {
       this.api.postLogin(`/authenticator/signin?companyId=${company}`, null, data)
         .subscribe(resp => {
           if (resp['token']) {
-            this.guardarToken(resp['token'], user, company);
+            this.authService.guardarToken(resp['token'], user, company);
             resolve(true);
           } else {
             this.token = null;
@@ -38,13 +41,5 @@ export class UsuarioService {
     })
   }
 
-  async guardarToken(token: string, usuario: string, company: string) {
-    this.token = token;
-    this.user = usuario;
-    this.company = company;
-    await this.storage.set('token', token);
-    await this.storage.set('usuario', usuario);
-    await this.storage.set('company', company);
-  }
 
 }

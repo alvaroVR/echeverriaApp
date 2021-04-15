@@ -29,7 +29,6 @@ export class LoginPage implements OnInit {
     }
     const valido = await this.usuarioService.login(this.loginUser.usuario, this.loginUser.password, this.loginUser.company)
     if (valido) {
-      //navegar
       this.navCtrl.navigateRoot('/gestion-task-owner', {animated: true});
     } else {
       this.uiService.alertInformativa('Información de usuario no es correcta.')

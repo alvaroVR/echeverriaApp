@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {forkJoin, Observable} from "rxjs";
 import {environment as ENV} from '../../environments/environment';
+import {UsuarioService} from "./usuario.service";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,42 +11,29 @@ import {environment as ENV} from '../../environments/environment';
 export class ApiService {
   environmentName: any;
   environmentUrl = 'Debug api';
-
   user;
 
-  token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYmVybmFiZSIsInJvbGUiOiJkZWZhdWx0IiwiaWF0IjoxNjE4MjUyMjk5LCJleHAiOjE2MTgzOTYyOTl9.4IUbh_ksKqlqQ9ASTBrn6v3_eMBRqBjHdOWbMsv1kKQ';
 
-
-  constructor(public http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     this.environmentName = ENV.environmentName;
     this.environmentUrl = ENV.apiUrl;
-
   }
 
   public get(url: string, body?: any) {
-    // const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    // const token = currentUser ? `Bearer ${currentUser.token}` : null;
-
     const headers = new HttpHeaders({
-      Authorization: 'token'
+      Authorization: `Bearer ${this.authService.token}`
     });
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept':  'application/json',
-        'Authorization':'Bearer'+ this.token
-      })
+    const header = {
+      'Authorization': 'Bearer ' + this.authService.token
     };
 
-    return this.http.get(this.environmentUrl + url, httpOptions);
+    return this.http.get(this.environmentUrl + url, {params: body, headers: header});
   }
 
   public post(url: string, body?: any, query?: any) {
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    const token = currentUser ? `Bearer ${currentUser.token}` : null;
-
     const headers = new HttpHeaders({
-      Authorization: token
+      Authorization: `Bearer ${this.authService.token}`
     });
     return this.http.post<any>(this.environmentUrl + url, body, {
       params: query,

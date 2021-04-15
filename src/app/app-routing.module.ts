@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {UsuarioGuard} from "./guards/usuario.guard";
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+    canLoad: [UsuarioGuard]
   },
   {
     path: '',
@@ -13,18 +15,20 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'gestion-task-owner',
-    loadChildren: () => import('./pages/gestion-task-owner/gestion-task-owner.module').then( m => m.GestionTaskOwnerPageModule)
+    loadChildren: () => import('./pages/gestion-task-owner/gestion-task-owner.module').then(m => m.GestionTaskOwnerPageModule),
+    canLoad: [UsuarioGuard]
   },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
