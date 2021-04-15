@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {UsuarioService} from "../../services/usuario.service";
 import {NavController} from "@ionic/angular";
+import {UiserviceService} from "../../services/uiservice.service";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginPage implements OnInit {
     company: ''
   };
 
-  constructor(private usuarioService: UsuarioService, private navCtrl: NavController) {
+  constructor(private usuarioService: UsuarioService, private navCtrl: NavController, private uiService: UiserviceService) {
   }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class LoginPage implements OnInit {
       //navegar
       this.navCtrl.navigateRoot('/gestion-task-owner', {animated: true});
     } else {
-      ///mostrar eror
+      this.uiService.alertInformativa('Información de usuario no es correcta.')
     }
   }
 

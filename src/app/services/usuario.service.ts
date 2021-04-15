@@ -28,6 +28,12 @@ export class UsuarioService {
             this.storage.clear();
             resolve(false);
           }
+        }, error => {
+          this.token = null;
+          this.user = null;
+          this.company = null;
+          this.storage.clear();
+          resolve(false);
         });
     })
   }
