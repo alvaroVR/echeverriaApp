@@ -7,30 +7,34 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Actividades</ion-card-title>
+      <ion-item-divider>
+        <ion-card-title>Actividades</ion-card-title>
+      </ion-item-divider>
     </ion-card-header>
 
     <ion-card-content>
-      <ion-row>
-        <ion-col>Id.</ion-col>
-        <ion-col>Qty</ion-col>
-        <ion-col>Inicio</ion-col>
-        <ion-col>Termino</ion-col>
-      </ion-row>
-      <ion-row *ngFor="let actividad of actividades; index as i" (click)="detalleActividad(actividad)">
-        <!--ion-col>{{ i + 1 }}</ion-col-->
-        <ion-col>{{ actividad.idtask }}</ion-col>
-        <ion-col>{{ actividad.qty_ejecutar }}</ion-col>
-        <ion-col>{{ actividad.start_date }}</ion-col>
-        <ion-col>{{ actividad.finish_date }}</ion-col>
-      </ion-row>
+      <ion-infinite-scroll threshold="50px">
+        <ion-row>
+          <ion-col>Id.</ion-col>
+          <ion-col>Qty</ion-col>
+          <ion-col>Inicio</ion-col>
+          <ion-col>Termino</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let actividad of actividades; index as i" (click)="detalleActividad(actividad)">
+          <!--ion-col>{{ i + 1 }}</ion-col-->
+          <ion-col>{{ actividad.idtask }}</ion-col>
+          <ion-col>{{ actividad.qty_ejecutar }}</ion-col>
+          <ion-col>{{ actividad.start_date }}</ion-col>
+          <ion-col>{{ actividad.finish_date }}</ion-col>
+        </ion-row>
+      </ion-infinite-scroll>
     </ion-card-content>
   </ion-card>
 
   <ion-card *ngIf="detActividad">
     <ion-card-header>
-      <ion-card-subtitle>{{detActividad.proyect_name}}</ion-card-subtitle>
-      <ion-card-title>{{detActividad.idtask}}</ion-card-title>
+      <ion-card-subtitle>Proy: {{detActividad.proyect_name}}</ion-card-subtitle>
+      <ion-card-subtitle>{{detActividad.idtask}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <ion-item>
@@ -38,13 +42,14 @@
         <ion-datetime value="2021-02-19"
                       min="2021"
                       displayFormat="DD/MM/YYYY"
+                      monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"
                       placeholder="Select Date"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>Termino</ion-label>
         <ion-datetime value="2021-02-19"
                       min="2021"
-                      displayFormat="DD/MM/YYYY"
+                      displayFormat="DD/MM/YYYY HH:mm"
                       placeholder="Select Date"></ion-datetime>
       </ion-item>
       <ion-segment value="favorite">
@@ -57,7 +62,7 @@
       </ion-segment>
 
       <ion-item>
-        <ion-label position="floating">Description</ion-label>
+        <ion-label position="floating">Descripción</ion-label>
         <ion-textarea mode="ios"></ion-textarea>
       </ion-item>
 
