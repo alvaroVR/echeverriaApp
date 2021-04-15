@@ -14,18 +14,22 @@ export class UsuarioService {
   }
 
   public login(user: string, password: string, company: string) {
-    const data = {user, password};
-    this.api.postLogin(`/authenticator/signin?companyId=${company}`, null, data)
-      .subscribe(resp => {
-        if (resp['token']) {
-          this.guardarToken(resp['token'], user, company);
-        } else {
-          this.token = null;
-          this.user = null;
-          this.company = null;
-          this.storage.clear();
-        }
-      });
+    return new Promise(resolve => {
+      const data = {user, password};
+      this.api.postLogin(`/authenticator/signin?companyId=${company}`, null, data)
+        .subscribe(resp => {
+          if (resp['token']) {
+            this.guardarToken(resp['token'], user, company);
+            resolve(true);
+          } else {
+            this.token = null;
+            this.user = null;
+            this.company = null;
+            this.storage.clear();
+            resolve(false);
+          }
+        });
+    })
   }
 
   async guardarToken(token: string, usuario: string, company: string) {

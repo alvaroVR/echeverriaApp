@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {UsuarioService} from "../../services/usuario.service";
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-login',
@@ -15,16 +16,23 @@ export class LoginPage implements OnInit {
     company: ''
   };
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private navCtrl: NavController) {
+  }
 
   ngOnInit() {
   }
 
-  login(fLogin: NgForm) {
+  async login(fLogin: NgForm) {
     if (fLogin.invalid) {
       return;
     }
-    this.usuarioService.login(this.loginUser.usuario, this.loginUser.password, this.loginUser.company)
+    const valido = await this.usuarioService.login(this.loginUser.usuario, this.loginUser.password, this.loginUser.company)
+    if (valido) {
+      //navegar
+      this.navCtrl.navigateRoot('/gestion-task-owner', {animated: true});
+    } else {
+      ///mostrar eror
+    }
   }
 
 
