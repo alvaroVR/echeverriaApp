@@ -8,6 +8,8 @@ export const environment = {
   apiUrl: 'https://6k2nqb8tah.execute-api.us-east-1.amazonaws.com/eimrktplace',
 };
 
+
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

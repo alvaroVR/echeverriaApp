@@ -1,9 +1,67 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>gestionTaskOwner</ion-title>
+    <ion-title>Gestión</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Actividades</ion-card-title>
+    </ion-card-header>
 
+    <ion-card-content>
+      <ion-row>
+        <ion-col>Id.</ion-col>
+        <ion-col>Qty</ion-col>
+        <ion-col>Inicio</ion-col>
+        <ion-col>Termino</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let actividad of actividades; index as i" (click)="detalleActividad(actividad)">
+        <!--ion-col>{{ i + 1 }}</ion-col-->
+        <ion-col>{{ actividad.idtask }}</ion-col>
+        <ion-col>{{ actividad.qty_ejecutar }}</ion-col>
+        <ion-col>{{ actividad.start_date }}</ion-col>
+        <ion-col>{{ actividad.finish_date }}</ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="detActividad">
+    <ion-card-header>
+      <ion-card-subtitle>{{detActividad.proyect_name}}</ion-card-subtitle>
+      <ion-card-title>{{detActividad.idtask}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Inicio</ion-label>
+        <ion-datetime value="2021-02-19"
+                      min="2021"
+                      displayFormat="DD/MM/YYYY"
+                      placeholder="Select Date"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Termino</ion-label>
+        <ion-datetime value="2021-02-19"
+                      min="2021"
+                      displayFormat="DD/MM/YYYY"
+                      placeholder="Select Date"></ion-datetime>
+      </ion-item>
+      <ion-segment value="favorite">
+        <ion-segment-button value="call">
+          <ion-label>No se pudo Finalizar</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="favorite">
+          <ion-label>No se pudo Iniciar</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea mode="ios"></ion-textarea>
+      </ion-item>
+
+      <ion-button color="success" expand="block">Guardar</ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

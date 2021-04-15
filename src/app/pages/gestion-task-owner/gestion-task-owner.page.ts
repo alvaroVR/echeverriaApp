@@ -7,6 +7,8 @@ import {GestionTaskOwnerService} from "../../services/gestion-task-owner.service
   styleUrls: ['./gestion-task-owner.page.scss'],
 })
 export class GestionTaskOwnerPage implements OnInit {
+  actividades;
+  detActividad;
 
   constructor(public gestionService: GestionTaskOwnerService) {
   }
@@ -21,8 +23,13 @@ export class GestionTaskOwnerPage implements OnInit {
       companyIdUsr: '90844000-5'
     };
     this.gestionService.getdettaskresponsable(request).subscribe(response => {
-      debugger
+      this.actividades = response.detalles
     })
+  }
+
+  detalleActividad(detalle) {
+    this.detActividad = detalle
+    console.log(detalle)
   }
 
 }

@@ -13,7 +13,7 @@ export class GestionTaskOwnerService {
 //https://6k2nqb8tah.execute-api.us-east-1.amazonaws.com/eimrktplace/marketplace/getdettaskresponsable?userId=admin&companyIdUsr=90844000-5
   getdettaskresponsable(query) {
     const subject = new Subject<any>();
-    this.api.get(`/loadmanager/getdettaskresponsable`, query).subscribe((data: any) => {
+    this.api.get(`/marketplace/getdettaskresponsable`, query).subscribe((data: any) => {
       subject.next(data);
     }, error => {
       subject.error(error);
