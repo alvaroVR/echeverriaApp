@@ -85,7 +85,7 @@ export class ApiService {
 
   public postLogin(url: string, body?: any, header?: any) {
     const headers = new HttpHeaders({
-      Authorization: `Basic ${window.btoa(header.user + ':' + header.password)}`
+      authorization: `Basic ${window.btoa(header.user + ':' + header.password)}`
     });
     return this.http.post<any>(this.environmentUrl + url, null, {
       headers

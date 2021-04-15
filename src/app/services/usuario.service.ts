@@ -6,7 +6,9 @@ import {Storage} from "@ionic/storage";
   providedIn: 'root'
 })
 export class UsuarioService {
-  token: string = null
+  token: string = null;
+  user: string = null;
+  company: string = null;
 
   constructor(private api: ApiService, private storage: Storage) {
   }
@@ -15,18 +17,24 @@ export class UsuarioService {
     const data = {user, password};
     this.api.postLogin(`/authenticator/signin?companyId=${company}`, null, data)
       .subscribe(resp => {
-        if (resp['code']) {
-          this.guardarToken(resp['token']);
+        if (resp['token']) {
+          this.guardarToken(resp['token'], user, company);
         } else {
           this.token = null;
-          //this.storage.clear();
+          this.user = null;
+          this.company = null;
+          this.storage.clear();
         }
       });
   }
 
-  async guardarToken(token: string) {
+  async guardarToken(token: string, usuario: string, company: string) {
     this.token = token;
-    // await this.storage.set('token', token);
+    this.user = usuario;
+    this.company = company;
+    await this.storage.set('token', token);
+    await this.storage.set('usuario', usuario);
+    await this.storage.set('company', company);
   }
 
 }
