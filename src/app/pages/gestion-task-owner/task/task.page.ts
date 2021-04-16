@@ -40,10 +40,16 @@ export class TaskPage implements OnInit {
       regIdOT: this.actividad.regIdOt,
       regIdSubpartida: this.actividad.regIdSubpartida,
       regIdTask: this.actividad.regIdTask,
-      startDate: moment(this.dateIni).format('DD/MM/YYYY'),
-      finishDate: moment(this.dateFin).format('DD/MM/YYYY'),
+      startDate: moment(this.dateIni).format('DD/MM/YYYY HH:mm'),
+      finishDate: moment(this.dateFin).format('DD/MM/YYYY HH:mm'),
       flagExcep: this.flagExcep,
       obsExcep: this.obsExcep
+    }
+    if (request.flagExcep === undefined) {
+      delete request.flagExcep;
+    }
+    if (request.obsExcep === undefined) {
+      delete request.obsExcep;
     }
     this.gestionService.post(request).subscribe(() => {
       const navigation: NavigationOptions = {
