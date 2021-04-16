@@ -1,5 +1,5 @@
 <app-header title="Lista Actividad" href="/gestion-task-owner"></app-header>
-<ion-content fullscreen *ngIf="actividades">
+<ion-content fullscreen *ngIf="actividades.length > 0">
 
   <ion-list-header mode="md">
     Proyecto {{actividades[0].proyect_name}}

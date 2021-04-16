@@ -10,7 +10,7 @@ import {AuthService} from "../../services/auth.service";
   styleUrls: ['./gestion-task-owner.page.scss'],
 })
 export class GestionTaskOwnerPage implements OnInit {
-  actividades: any
+  actividades: any = []
   detActividad;
 
   constructor(public gestionService: GestionTaskOwnerService, private router: Router, private navCtrl: NavController,
