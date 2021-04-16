@@ -31,6 +31,7 @@ export class GestionTaskOwnerService {
             regIdOt: det.regIdOt,
             regIdSubpartida: det.regIdSubpartida,
             regIdTask: det.regIdTask,
+            fecha: det.fecha,
             selected: false
           }
         })

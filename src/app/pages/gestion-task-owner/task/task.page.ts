@@ -43,7 +43,8 @@ export class TaskPage implements OnInit {
       startDate: moment(this.dateIni).format('DD/MM/YYYY HH:mm'),
       finishDate: moment(this.dateFin).format('DD/MM/YYYY HH:mm'),
       flagExcep: this.flagExcep,
-      obsExcep: this.obsExcep
+      obsExcep: this.obsExcep,
+      fechaEjec: this.actividad.fecha
     }
     if (request.flagExcep === undefined) {
       delete request.flagExcep;
