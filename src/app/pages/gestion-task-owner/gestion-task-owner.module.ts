@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { GestionTaskOwnerPageRoutingModule } from './gestion-task-owner-routing.module';
 
 import { GestionTaskOwnerPage } from './gestion-task-owner.page';
+import {TaskPageModule} from "./task/task.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GestionTaskOwnerPageRoutingModule
+    GestionTaskOwnerPageRoutingModule,
+    TaskPageModule
   ],
   declarations: [GestionTaskOwnerPage]
 })

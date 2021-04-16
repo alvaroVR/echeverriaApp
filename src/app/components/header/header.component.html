@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        [defaultHref]="this.href"
+        *ngIf="this.txtBack"
+        [text]="this.txtBack"
+        color="success">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize" [ngClass]="{'ion-text-center': !this.href}">{{this.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>

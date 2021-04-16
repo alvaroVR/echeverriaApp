@@ -1,72 +1,22 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Gestión</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Lista Actividad" href="/gestion-task-owner"></app-header>
+<ion-content fullscreen *ngIf="actividades">
 
-<ion-content>
+  <ion-list-header mode="md">
+    Proyecto {{actividades[0].proyect_name}}
+  </ion-list-header>
+
   <ion-card>
-    <ion-card-header>
-      <ion-item-divider>
-        <ion-card-title>Actividades</ion-card-title>
-      </ion-item-divider>
-    </ion-card-header>
-
-    <ion-card-content>
-      <ion-infinite-scroll threshold="50px">
-        <ion-row>
-          <ion-col>Id.</ion-col>
-          <ion-col>Qty</ion-col>
-          <ion-col>Inicio</ion-col>
-          <ion-col>Termino</ion-col>
-        </ion-row>
-        <ion-row *ngFor="let actividad of actividades; index as i" (click)="detalleActividad(actividad)">
-          <!--ion-col>{{ i + 1 }}</ion-col-->
-          <ion-col>{{ actividad.idtask }}</ion-col>
-          <ion-col>{{ actividad.qty_ejecutar }}</ion-col>
-          <ion-col>{{ actividad.start_date }}</ion-col>
-          <ion-col>{{ actividad.finish_date }}</ion-col>
-        </ion-row>
-      </ion-infinite-scroll>
-    </ion-card-content>
+    <ion-item *ngFor="let actividad of actividades">
+      <ion-label>
+        <h3>Actividad: {{actividad.idtask}}</h3>
+        <h3>Cantidad: {{actividad.qty_ejecutar}}</h3>
+        <p>Fecaha Inicio: {{actividad.start_date}} - Fecha Termino: {{actividad.finish_date}}</p>
+      </ion-label>
+      <ion-button [color]="actividad.selected ? 'success' : 'primary'"
+                  [fill]="actividad.selected ? 'solid' : 'outline'"
+                  slot="end" (click)="detalleActividad(actividad)">Ingresar
+      </ion-button>
+    </ion-item>
   </ion-card>
 
-  <ion-card *ngIf="detActividad">
-    <ion-card-header>
-      <ion-card-subtitle>Proy: {{detActividad.proyect_name}}</ion-card-subtitle>
-      <ion-card-subtitle>{{detActividad.idtask}}</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>Inicio</ion-label>
-        <ion-datetime value="2021-02-19"
-                      min="2021"
-                      displayFormat="DD/MM/YYYY"
-                      monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic"
-                      placeholder="Select Date"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Termino</ion-label>
-        <ion-datetime value="2021-02-19"
-                      min="2021"
-                      displayFormat="DD/MM/YYYY HH:mm"
-                      placeholder="Select Date"></ion-datetime>
-      </ion-item>
-      <ion-segment value="favorite">
-        <ion-segment-button value="call">
-          <ion-label>No se pudo Finalizar</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="favorite">
-          <ion-label>No se pudo Iniciar</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-
-      <ion-item>
-        <ion-label position="floating">Descripción</ion-label>
-        <ion-textarea mode="ios"></ion-textarea>
-      </ion-item>
-
-      <ion-button color="success" expand="block">Guardar</ion-button>
-    </ion-card-content>
-  </ion-card>
 </ion-content>

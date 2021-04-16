@@ -17,14 +17,17 @@ export class AuthService {
     this.token = token;
     this.user = usuario;
     this.company = company;
+
     await this.storage.set('token', token);
-    await this.storage.set('usuario', usuario);
+    await this.storage.set('user', usuario);
     await this.storage.set('company', company);
     this.navCtrl.navigateRoot(['gestion-task-owner'])
   }
 
   async cargarToken() {
     this.token = await this.storage.get('token') || null;
+    this.user = await this.storage.get('user') || null;
+    this.company = await this.storage.get('company') || null;
   }
 
   async validaToken(): Promise<boolean> {
