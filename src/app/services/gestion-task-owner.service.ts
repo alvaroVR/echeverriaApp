@@ -21,17 +21,22 @@ export class GestionTaskOwnerService {
         detalles: data.detalles.map((det) => {
           return {
             proyect_name: det.proyect_name,
-            idtask: det.idtask,
+            idtask: det.idregtask,
+            taskname: det.taskname,
             qty_ejecutar: det.qty_ejecutar,
             start_date: det.start_date,
             finish_date: det.finish_date,
-            clientId: det.clientId,
-            companyId: det.companyId,
+            clientId: det.idcliente,
+            companyId: det.idcompany,
             idproyecto: det.idproyecto,
-            regIdOt: det.regIdOt,
-            regIdSubpartida: det.regIdSubpartida,
-            regIdTask: det.regIdTask,
+            regIdOt: det.idregot,
+            hh_PTO: det.hh_PTO,
+            idActivity: det.idActivity,
+            regIdSubpartida: det.idregsubpartida,
+            regIdTask: det.idregtask,
             fecha: det.fecha,
+            tasks: det.tasks,
+            expanded: false,
             selected: false
           }
         })

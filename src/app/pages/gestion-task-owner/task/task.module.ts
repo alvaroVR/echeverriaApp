@@ -1,24 +1,27 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { TaskPageRoutingModule } from './task-routing.module';
+import {TaskPageRoutingModule} from './task-routing.module';
 
-import { TaskPage } from './task.page';
-import {HeaderComponent} from "../../../components/header/header.component";
+import {TaskPage} from './task.page';
+import {HeaderComponent} from '../../../components/header/header.component';
+import {ExpandableComponent} from '../../../components/expandable/expandable.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TaskPageRoutingModule
+    TaskPageRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
   ],
   declarations: [TaskPage, HeaderComponent]
 })
-export class TaskPageModule {}
+export class TaskPageModule {
+}

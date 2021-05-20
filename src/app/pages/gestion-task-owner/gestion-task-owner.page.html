@@ -1,11 +1,10 @@
 <app-header title="Lista Actividad" href="/gestion-task-owner"></app-header>
 <ion-content fullscreen *ngIf="actividades.length > 0">
-
   <ion-list-header mode="md">
     Proyecto {{actividades[0].proyect_name}}
   </ion-list-header>
 
-  <ion-card>
+  <!--ion-card>
     <ion-item *ngFor="let actividad of actividades">
       <ion-label>
         <h3>Actividad: {{actividad.idtask}}</h3>
@@ -17,6 +16,26 @@
                   slot="end" (click)="detalleActividad(actividad)">Ingresar
       </ion-button>
     </ion-item>
+  </ion-card-->
+
+  <ion-card (click)="expandItem(actividad)" *ngFor="let actividad of actividades">
+    <ion-item>
+      <ion-label>
+        <h3>Actividad: {{actividad.taskname}} - {{actividad.idActivity}} </h3>
+        <h3>Cantidad: {{actividad.qty_ejecutar}} - HH: {{actividad.hh_PTO}}</h3>
+        <p>Inicio: {{actividad.start_date}} - Termino: {{actividad.finish_date}}</p>
+      </ion-label>
+    </ion-item>
+    <app-expandable expandHeight="300px" [expanded]="actividad.expanded">
+      <ion-item *ngFor="let fecha of actividad.tasks">
+        <p>{{fecha.fecha}}</p>
+        <ion-button [color]="actividad.selected ? 'success' : 'primary'"
+                    [fill]="actividad.selected ? 'solid' : 'outline'"
+                    slot="end" (click)="detalleActividad(actividad, fecha.fecha, fecha.cant)">Ingresar
+        </ion-button>
+      </ion-item>
+    </app-expandable>
+
   </ion-card>
 
 </ion-content>

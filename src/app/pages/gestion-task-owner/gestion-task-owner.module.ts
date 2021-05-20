@@ -8,6 +8,8 @@ import { GestionTaskOwnerPageRoutingModule } from './gestion-task-owner-routing.
 
 import { GestionTaskOwnerPage } from './gestion-task-owner.page';
 import {TaskPageModule} from "./task/task.module";
+import {ExpandableComponent} from "../../components/expandable/expandable.component";
+import {HeaderComponent} from "../../components/header/header.component";
 
 @NgModule({
   imports: [
@@ -17,6 +19,9 @@ import {TaskPageModule} from "./task/task.module";
     GestionTaskOwnerPageRoutingModule,
     TaskPageModule
   ],
-  declarations: [GestionTaskOwnerPage]
+  exports: [
+    ExpandableComponent,
+  ],
+  declarations: [GestionTaskOwnerPage, ExpandableComponent]
 })
 export class GestionTaskOwnerPageModule {}

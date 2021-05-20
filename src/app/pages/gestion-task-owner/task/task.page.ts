@@ -5,6 +5,8 @@ import {NavigationOptions} from "@ionic/angular/providers/nav-controller";
 import {GestionTaskOwnerService} from "../../../services/gestion-task-owner.service";
 import {AuthService} from "../../../services/auth.service";
 import * as moment from 'moment';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UiserviceService} from "../../../services/uiservice.service";
 
 @Component({
   selector: 'app-task',
@@ -17,19 +19,42 @@ export class TaskPage implements OnInit {
   dateFin;
   flagExcep;
   obsExcep;
+  cantModel;
+  pausaModel;
+  isSubmitted = false;
+
+  taskForm: FormGroup;
 
   constructor(public router: Router, public navCtrl: NavController, public activatedRoute: ActivatedRoute, public gestionService: GestionTaskOwnerService,
-              public authService: AuthService) {
+              public authService: AuthService, public formBuilder: FormBuilder, public alertMsg: UiserviceService) {
     this.activatedRoute.queryParams.subscribe((r: any) => {
       this.actividad = r
+      debugger
     })
+
 
   }
 
   ngOnInit() {
+    this.taskForm = this.formBuilder.group({
+      cantCtrl: [''],
+      dateIniCtrl: [''],
+      dateFinCtrl: [''],
+      pausaCtrl: ['',],
+      flagExcepCtrl: ['', [Validators.required]],
+      obsExcepCtrl: ['']
+    })
+  }
+
+  get errorControl() {
+    return this.taskForm.controls;
   }
 
   enviar() {
+    this.isSubmitted = true;
+    if (this.taskForm.invalid) {
+      return
+    }
 
     const request = {
       userId: this.authService.user,
@@ -40,11 +65,13 @@ export class TaskPage implements OnInit {
       regIdOT: this.actividad.regIdOt,
       regIdSubpartida: this.actividad.regIdSubpartida,
       regIdTask: this.actividad.regIdTask,
-      startDate: moment(this.dateIni).format('DD/MM/YYYY HH:mm'),
-      finishDate: moment(this.dateFin).format('DD/MM/YYYY HH:mm'),
+      startDate: this.dateIni === undefined || this.dateIni === null ? null : moment(this.dateIni).format('DD/MM/YYYY HH:mm'),
+      finishDate: this.dateFin === undefined || this.dateFin === null ? null : moment(this.dateFin).format('DD/MM/YYYY HH:mm'),
       flagExcep: this.flagExcep,
       obsExcep: this.obsExcep,
-      fechaEjec: this.actividad.fecha
+      fechaEjec: this.actividad.fecha,
+      qtyEjec: this.cantModel === undefined || this.cantModel === null ? 0 : this.cantModel,
+      hhPausa: this.pausaModel === undefined || this.pausaModel === null ? 0 : this.pausaModel,
     }
     if (request.flagExcep === undefined) {
       delete request.flagExcep;
@@ -52,7 +79,11 @@ export class TaskPage implements OnInit {
     if (request.obsExcep === undefined) {
       delete request.obsExcep;
     }
-    this.gestionService.post(request).subscribe(() => {
+    this.gestionService.post(request).subscribe((response) => {
+      if (response.code != 0) {
+        this.alertMsg.alertInformativa(response.error);
+        return
+      }
       const navigation: NavigationOptions = {
         queryParams: this.actividad
       }

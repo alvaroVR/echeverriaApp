@@ -26,6 +26,7 @@ import {FileTransfer} from "@ionic-native/file-transfer/ngx";
     FileTransfer,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule {
 }

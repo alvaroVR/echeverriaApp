@@ -11,10 +11,22 @@ import {AuthService} from "../../services/auth.service";
 })
 export class GestionTaskOwnerPage implements OnInit {
   actividades: any = []
+  items: any = [];
   detActividad;
 
   constructor(public gestionService: GestionTaskOwnerService, private router: Router, private navCtrl: NavController,
               public activatedRoute: ActivatedRoute, public authService: AuthService) {
+    this.items = [
+      {expanded: false},
+      {expanded: false},
+      {expanded: false},
+      {expanded: false},
+      {expanded: false},
+      {expanded: false},
+      {expanded: false},
+      {expanded: false},
+      {expanded: false}
+    ];
 
   }
 
@@ -38,6 +50,7 @@ export class GestionTaskOwnerPage implements OnInit {
     };
     this.gestionService.getdettaskresponsable(request).subscribe(response => {
       this.actividades = response.detalles
+      debugger
     })
   }
 
@@ -47,16 +60,21 @@ export class GestionTaskOwnerPage implements OnInit {
         return {
           proyect_name: det.proyect_name,
           idtask: det.idtask,
+          taskname: det.taskname,
           qty_ejecutar: det.qty_ejecutar,
           start_date: det.start_date,
           finish_date: det.finish_date,
-          clientId: det.clientId,
-          companyId: det.companyId,
+          clientId: det.idcliente,
+          companyId: det.idcompany,
           idproyecto: det.idproyecto,
-          regIdOt: det.regIdOt,
-          regIdSubpartida: det.regIdSubpartida,
-          regIdTask: det.regIdTask,
+          regIdOt: det.idregot,
+          hh_PTO: det.hh_PTO,
+          idActivity: det.idActivity,
+          regIdSubpartida: det.idregsubpartida,
+          regIdTask: det.idregtask,
           fecha: det.fecha,
+          tasks: det.tasks,
+          expanded: false,
           selected: false
         };
       });
@@ -64,14 +82,49 @@ export class GestionTaskOwnerPage implements OnInit {
     })
   }
 
-  detalleActividad(detalle) {
+  detalleActividad(detalle, fecha, cantidad) {
+    const params = {
+      clientId: detalle.clientId,
+      companyId: detalle.companyId,
+      expanded: detalle.expanded,
+      finish_date: detalle.finish_date,
+      hh_PTO: detalle.hh_PTO,
+      idActivity: detalle.idActivity,
+      idproyecto: detalle.idproyecto,
+      idtask: detalle.idtask,
+      proyect_name: detalle.proyect_name,
+      qty_ejecutar: detalle.qty_ejecutar,
+      regIdOt: detalle.regIdOt,
+      regIdSubpartida: detalle.regIdSubpartida,
+      regIdTask: detalle.regIdTask,
+      selected: detalle.selected,
+      start_date: detalle.start_date,
+      taskname: detalle.taskname,
+      fecha,
+      cantidad
+    }
     const navigationExtras: NavigationExtras = {
-      queryParams: detalle
+      queryParams: params
     }
     this.asd().then(() => {
       this.actividades.filter(act => act.idtask === detalle.idtask ? act.selected = true : act.selected = false)
       this.router.navigate(['/gestion-task-owner/task'], navigationExtras);
     })
+  }
+
+  expandItem(item): void {
+    if (item.expanded) {
+      item.expanded = false;
+    } else {
+      this.actividades.map(listItem => {
+        if (item == listItem) {
+          listItem.expanded = !listItem.expanded;
+        } else {
+          listItem.expanded = false;
+        }
+        return listItem;
+      });
+    }
   }
 
 }
