@@ -50,7 +50,6 @@ export class GestionTaskOwnerPage implements OnInit {
     };
     this.gestionService.getdettaskresponsable(request).subscribe(response => {
       this.actividades = response.detalles
-      debugger
     })
   }
 
