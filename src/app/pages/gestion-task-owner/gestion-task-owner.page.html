@@ -29,9 +29,12 @@
     <app-expandable expandHeight="300px" [expanded]="actividad.expanded">
       <ion-item *ngFor="let fecha of actividad.tasks">
         <p>{{fecha.fecha}}</p>
-        <ion-button [color]="actividad.selected ? 'success' : 'primary'"
+        <ion-button [color]="fecha.status === 'UNCOMPLETE' ? 'danger' : 'primary'"
+                    style="width: 100px;"
                     [fill]="actividad.selected ? 'solid' : 'outline'"
-                    slot="end" (click)="detalleActividad(actividad, fecha.fecha, fecha.cant)">Ingresar
+                    [disabled]="fecha.status === 'UNCOMPLETE'"
+                    slot="end" (click)="detalleActividad(actividad, fecha.fecha, fecha.cant)">
+          {{fecha.status}}
         </ion-button>
       </ion-item>
     </app-expandable>

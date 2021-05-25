@@ -3,6 +3,7 @@ import {GestionTaskOwnerService} from "../../services/gestion-task-owner.service
 import {NavController} from "@ionic/angular";
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {AuthService} from "../../services/auth.service";
+import {UiserviceService} from "../../services/uiservice.service";
 
 @Component({
   selector: 'app-gestion-task-owner',
@@ -15,7 +16,7 @@ export class GestionTaskOwnerPage implements OnInit {
   detActividad;
 
   constructor(public gestionService: GestionTaskOwnerService, private router: Router, private navCtrl: NavController,
-              public activatedRoute: ActivatedRoute, public authService: AuthService) {
+              public activatedRoute: ActivatedRoute, public authService: AuthService, public uiService: UiserviceService) {
     this.items = [
       {expanded: false},
       {expanded: false},
@@ -50,6 +51,11 @@ export class GestionTaskOwnerPage implements OnInit {
     };
     this.gestionService.getdettaskresponsable(request).subscribe(response => {
       this.actividades = response.detalles
+      debugger
+    }, error => {
+      this.uiService.showMessageOkCancel('Error con los servicios', 'Existen problemas con la información', 'Reintentar').then(r => {
+        debugger
+      })
     })
   }
 
@@ -73,6 +79,7 @@ export class GestionTaskOwnerPage implements OnInit {
           regIdTask: det.idregtask,
           fecha: det.fecha,
           tasks: det.tasks,
+          status: det.status,
           expanded: false,
           selected: false
         };
@@ -97,6 +104,7 @@ export class GestionTaskOwnerPage implements OnInit {
       regIdSubpartida: detalle.regIdSubpartida,
       regIdTask: detalle.regIdTask,
       selected: detalle.selected,
+      status: detalle.status,
       start_date: detalle.start_date,
       taskname: detalle.taskname,
       fecha,
