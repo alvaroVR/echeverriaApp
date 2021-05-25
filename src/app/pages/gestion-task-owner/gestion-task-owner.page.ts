@@ -54,7 +54,7 @@ export class GestionTaskOwnerPage implements OnInit {
       debugger
     }, error => {
       this.uiService.showMessageOkCancel('Error con los servicios', 'Existen problemas con la información', 'Reintentar').then(r => {
-        debugger
+        this.prueba()
       })
     })
   }
