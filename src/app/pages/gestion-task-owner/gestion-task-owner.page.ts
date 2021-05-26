@@ -51,7 +51,6 @@ export class GestionTaskOwnerPage implements OnInit {
     };
     this.gestionService.getdettaskresponsable(request).subscribe(response => {
       this.actividades = response.detalles
-      debugger
     }, error => {
       this.uiService.showMessageOkCancel('Error con los servicios', 'Existen problemas con la información', 'Reintentar').then(r => {
         this.prueba()
