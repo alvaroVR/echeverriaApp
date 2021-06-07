@@ -30,6 +30,7 @@ export class TaskPage implements OnInit {
     this.activatedRoute.queryParams.subscribe((r: any) => {
       this.actividad = r
       debugger
+      this.dateIni = this.actividad.inicio
     })
 
 

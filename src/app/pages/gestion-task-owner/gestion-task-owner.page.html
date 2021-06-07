@@ -24,16 +24,18 @@
         <h3>Actividad: {{actividad.taskname}} - {{actividad.idActivity}} </h3>
         <h3>Cantidad: {{actividad.qty_tot_ejec}} / {{actividad.qty_ejecutar}} - HH: {{actividad.hh_PTO}}</h3>
         <p>Inicio: {{actividad.start_date}} - Termino: {{actividad.finish_date}}</p>
+        <ion-button (click)="finishAll(actividad)">Finish Act</ion-button>
       </ion-label>
     </ion-item>
     <app-expandable expandHeight="300px" [expanded]="actividad.expanded">
       <ion-item *ngFor="let fecha of actividad.tasks">
         <p>{{fecha.fecha}}</p>
-        <ion-button [color]="fecha.status === 'UNCOMPLETE' ? 'danger' : 'primary'"
-                    style="width: 100px;"
-                    [fill]="actividad.selected ? 'solid' : 'outline'"
-                    [disabled]="fecha.status === 'UNCOMPLETE'"
-                    slot="end" (click)="detalleActividad(actividad, fecha.fecha, fecha.cant)">
+        <ion-button
+          [color]="fecha.status === 'UNCOMPLETE' ? 'danger' : fecha.status === 'INITIATE' ? 'warning' :'primary'"
+          style="width: 100px;"
+          [fill]="actividad.selected ? 'solid' : 'outline'"
+          [disabled]="fecha.status === 'UNCOMPLETE'"
+          slot="end" (click)="detalleActividad(actividad, fecha.fecha, fecha.cant, fecha.inicio, fecha.status)">
           {{fecha.status}}
         </ion-button>
       </ion-item>

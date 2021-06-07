@@ -18,6 +18,7 @@ export class GestionTaskOwnerService {
         code: data.code,
         error: data.error,
         label: data.label,
+        cantInitiate: data.cantInitiate,
         detalles: data.detalles.map((det) => {
           return {
             proyect_name: det.proyect_name,
@@ -52,6 +53,16 @@ export class GestionTaskOwnerService {
   post(request) {
     const subject = new Subject<any>();
     this.api.post(`/marketplace/putInfoOwnerTaskSubPartidaOT/`, null, request).subscribe((response: any) => {
+      subject.next(response);
+    }, error => {
+      return subject.error(error);
+    });
+    return subject.asObservable();
+  }
+
+  putcloseactivity(request) {
+    const subject = new Subject<any>();
+    this.api.post(`/marketplace/putcloseactivity`, null, request).subscribe((response: any) => {
       subject.next(response);
     }, error => {
       return subject.error(error);

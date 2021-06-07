@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GestionTaskOwnerService} from "../../services/gestion-task-owner.service";
-import {NavController} from "@ionic/angular";
+import {AlertController, NavController} from "@ionic/angular";
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {AuthService} from "../../services/auth.service";
 import {UiserviceService} from "../../services/uiservice.service";
@@ -14,8 +14,10 @@ export class GestionTaskOwnerPage implements OnInit {
   actividades: any = []
   items: any = [];
   detActividad;
+  actividadesGl;
 
   constructor(public gestionService: GestionTaskOwnerService, private router: Router, private navCtrl: NavController,
+              public alertController: AlertController,
               public activatedRoute: ActivatedRoute, public authService: AuthService, public uiService: UiserviceService) {
     this.items = [
       {expanded: false},
@@ -51,6 +53,23 @@ export class GestionTaskOwnerPage implements OnInit {
     };
     this.gestionService.getdettaskresponsable(request).subscribe(response => {
       this.actividades = response.detalles
+      this.actividadesGl = response
+    }, error => {
+      this.uiService.showMessageOkCancel('Error con los servicios', 'Existen problemas con la información', 'Reintentar').then(r => {
+        this.prueba()
+      })
+    })
+  }
+
+  llamadaServicio() {
+    const request = {
+      userId: this.authService.user,
+      companyIdUsr: this.authService.company
+    };
+    this.gestionService.getdettaskresponsable(request).subscribe(response => {
+      this.actividades = response.detalles
+      this.actividadesGl = response
+      this.uiService.dismissLoading()
     }, error => {
       this.uiService.showMessageOkCancel('Error con los servicios', 'Existen problemas con la información', 'Reintentar').then(r => {
         this.prueba()
@@ -71,6 +90,7 @@ export class GestionTaskOwnerPage implements OnInit {
           clientId: det.idcliente,
           companyId: det.idcompany,
           idproyecto: det.idproyecto,
+          cantInitiate: det.cantInitiate,
           regIdOt: det.idregot,
           hh_PTO: det.hh_PTO,
           idActivity: det.idActivity,
@@ -87,7 +107,13 @@ export class GestionTaskOwnerPage implements OnInit {
     })
   }
 
-  detalleActividad(detalle, fecha, cantidad) {
+  detalleActividad(detalle, fecha, cantidad, inicio, status) {
+    if (this.actividadesGl.cantInitiate > 0 && status !== 'INITIATE') {
+      let header = `Warning`
+      let mensaje = `<div>Para ingresar debe finalizar las tareas con estado INITIATE </div>`
+      let cssClass = 'warning'
+      return this.uiService.alertInformativa(mensaje, header, cssClass)
+    }
     const params = {
       clientId: detalle.clientId,
       companyId: detalle.companyId,
@@ -108,7 +134,8 @@ export class GestionTaskOwnerPage implements OnInit {
       start_date: detalle.start_date,
       taskname: detalle.taskname,
       fecha,
-      cantidad
+      cantidad,
+      inicio
     }
     const navigationExtras: NavigationExtras = {
       queryParams: params
@@ -132,6 +159,48 @@ export class GestionTaskOwnerPage implements OnInit {
         return listItem;
       });
     }
+  }
+
+  async finishAll(actividad) {
+    //putcloseactivity?userId=admin&companyIdUsr=90844000-5&companyIdSelect=01&clientId=01&projectId=4600018331&regIdOT=1&regIdSubpartida=1&regIdTask=1
+
+    const alert = await this.alertController.create({
+      subHeader: '¿Está seguro de finalizar esta actividad?',
+      message: '',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.uiService.presentLoading('Terminando actividades...')
+            const request = {
+              userId: this.authService.user,
+              companyIdUsr: this.authService.company,
+              companyIdSelect: actividad.companyId,
+              clientId: actividad.clientId,
+              projectId: actividad.idproyecto,
+              regIdOT: actividad.regIdOt,
+              regIdSubpartida: actividad.regIdSubpartida,
+              regIdTask: actividad.regIdTask
+            }
+            this.gestionService.putcloseactivity(request).subscribe(r => {
+              this.llamadaServicio()
+            })
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertConfirm() {
+
   }
 
 }

@@ -1,16 +1,21 @@
 import {Injectable} from '@angular/core';
-import {AlertController} from "@ionic/angular";
+import {AlertController, LoadingController} from "@ionic/angular";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UiserviceService {
 
-  constructor(private alertController: AlertController) {
+  isLoading = false;
+  loading: HTMLIonLoadingElement;
+
+  constructor(private alertController: AlertController, public loadingController: LoadingController) {
   }
 
-  async alertInformativa(message: string) {
+  async alertInformativa(message: string, header?: string, cssClass?) {
     const alert = await this.alertController.create({
+      header,
+      cssClass,
       message,
       buttons: ['Aceptar']
     });
@@ -45,6 +50,28 @@ export class UiserviceService {
       choice = data
     })
     return choice
+  }
+
+  async presentLoading(message?: string, dismissback?: boolean): Promise<any> {
+    this.isLoading = true;
+    return await this.loadingController.create({
+      message: message ? message : 'Cargando...',
+      backdropDismiss: dismissback ? dismissback : false,
+      spinner: 'circles'
+    }).then(a => {
+      a.present().then(() => {
+        if (!this.isLoading) {
+          a.dismiss().then(() => console.log('abort presenting'))
+        }
+      });
+    });
+  }
+
+  async dismissLoading() {
+    if (this.isLoading) {
+      this.isLoading = false;
+      return await this.loadingController.dismiss().then(() => console.log('loading dismissed'));
+    }
   }
 
 
