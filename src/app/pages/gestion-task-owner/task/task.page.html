@@ -4,7 +4,7 @@
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle>Proy: {{actividad.proyect_name}}</ion-card-subtitle>
-      <ion-card-subtitle>Act: {{actividad.taskname}} - {{actividad.idActivity}} </ion-card-subtitle>
+      <ion-card-subtitle>Act: {{actividad.taskname}} - {{actividad.idActivity}} | Progreso: {{actividad.qty_tot_ejec}} / {{actividad.qty_ejecutar}}</ion-card-subtitle>
       <ion-card-subtitle>Cant: {{actividad.cantidad}}</ion-card-subtitle>
     </ion-card-header>
   </ion-card>
@@ -25,7 +25,7 @@
           <ion-label>Inicio</ion-label>
           <ion-datetime value=""
                         min="2021"
-                        [required]="flagExcep == 0"
+                        [required]="flagExcep == 0 || !flagExcep"
                         formControlName="dateIniCtrl"
                         [(ngModel)]="dateIni"
                         displayFormat="DD/MM/YYYY HH:mm"
@@ -54,7 +54,8 @@
                      formControlName="pausaCtrl"></ion-input>
         </ion-item>
         <ion-list>
-          <ion-radio-group [(ngModel)]="flagExcep" formControlName="flagExcepCtrl">
+          <ion-radio-group [(ngModel)]="flagExcep" formControlName="flagExcepCtrl"
+          [required]="">
             <ion-item>
               <ion-label [ngClass]="{'error': isSubmitted && errorControl.flagExcepCtrl.errors?.required}">Completado</ion-label>
               <ion-radio id="1" name="val1" value="0"></ion-radio>

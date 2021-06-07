@@ -29,6 +29,7 @@ export class TaskPage implements OnInit {
               public authService: AuthService, public formBuilder: FormBuilder, public alertMsg: UiserviceService) {
     this.activatedRoute.queryParams.subscribe((r: any) => {
       this.actividad = r
+      debugger
     })
 
 
@@ -39,8 +40,8 @@ export class TaskPage implements OnInit {
       cantCtrl: [''],
       dateIniCtrl: [''],
       dateFinCtrl: [''],
-      pausaCtrl: ['',],
-      flagExcepCtrl: ['', [Validators.required]],
+      pausaCtrl: [''],
+      flagExcepCtrl: [''],
       obsExcepCtrl: ['']
     })
   }

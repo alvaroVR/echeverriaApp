@@ -99,6 +99,7 @@ export class GestionTaskOwnerPage implements OnInit {
       idtask: detalle.idtask,
       proyect_name: detalle.proyect_name,
       qty_ejecutar: detalle.qty_ejecutar,
+      qty_tot_ejec: detalle.qty_tot_ejec,
       regIdOt: detalle.regIdOt,
       regIdSubpartida: detalle.regIdSubpartida,
       regIdTask: detalle.regIdTask,
