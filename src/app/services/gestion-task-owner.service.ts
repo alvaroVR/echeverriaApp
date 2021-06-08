@@ -38,6 +38,8 @@ export class GestionTaskOwnerService {
             regIdTask: det.idregtask,
             fecha: det.fecha,
             tasks: det.tasks,
+            cantInitiate: det.cantInitiate,
+            uom: det.uom,
             expanded: false,
             selected: false
           }

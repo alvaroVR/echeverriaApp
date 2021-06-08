@@ -29,6 +29,7 @@ export class TaskPage implements OnInit {
               public authService: AuthService, public formBuilder: FormBuilder, public alertMsg: UiserviceService) {
     this.activatedRoute.queryParams.subscribe((r: any) => {
       this.actividad = r
+      debugger
       this.dateIni = this.actividad.inicio
     })
 

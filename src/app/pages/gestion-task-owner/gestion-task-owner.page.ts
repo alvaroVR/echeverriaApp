@@ -99,6 +99,7 @@ export class GestionTaskOwnerPage implements OnInit {
           fecha: det.fecha,
           tasks: det.tasks,
           status: det.status,
+          uom: det.uom,
           expanded: false,
           selected: false
         };
@@ -108,7 +109,8 @@ export class GestionTaskOwnerPage implements OnInit {
   }
 
   detalleActividad(detalle, fecha, cantidad, inicio, status) {
-    if (this.actividadesGl.cantInitiate > 0 && status !== 'INITIATE') {
+    debugger
+    if (detalle.cantInitiate > 0 && status !== 'INITIATE') {
       let header = `Warning`
       let mensaje = `<div>Para ingresar debe finalizar las tareas con estado INITIATE </div>`
       let cssClass = 'warning'
@@ -133,6 +135,7 @@ export class GestionTaskOwnerPage implements OnInit {
       status: detalle.status,
       start_date: detalle.start_date,
       taskname: detalle.taskname,
+      uom: detalle.uom,
       fecha,
       cantidad,
       inicio
