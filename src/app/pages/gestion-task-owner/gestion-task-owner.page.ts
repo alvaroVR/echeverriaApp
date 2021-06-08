@@ -109,7 +109,6 @@ export class GestionTaskOwnerPage implements OnInit {
   }
 
   detalleActividad(detalle, fecha, cantidad, inicio, status) {
-    debugger
     if (detalle.cantInitiate > 0 && status !== 'INITIATE') {
       let header = `Warning`
       let mensaje = `<div>Para ingresar debe finalizar las tareas con estado INITIATE </div>`
