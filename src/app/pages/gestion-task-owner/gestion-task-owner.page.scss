@@ -11,8 +11,16 @@ ion-button {
   color: red !important;
 }
 
-#alert-1-hdr {
-  color: #ffd351e0 !important;
-  font-size: 20px;
-  font-weight: 500;
+h2 {
+  .alert-title.sc-ion-alert-md {
+    color: #e51010 !important;
+    font-size: 20px;
+    font-weight: 500;
+  }
 }
+
+.btn {
+  bottom: -20px;
+  height: 30px;
+}
+

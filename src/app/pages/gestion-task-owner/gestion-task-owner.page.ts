@@ -110,7 +110,7 @@ export class GestionTaskOwnerPage implements OnInit {
 
   detalleActividad(detalle, fecha, cantidad, inicio, status) {
     if (detalle.cantInitiate > 0 && status !== 'INITIATE') {
-      let header = `Warning`
+      let header = `Advertencia`
       let mensaje = `<div>Para ingresar debe finalizar las tareas con estado INITIATE </div>`
       let cssClass = 'warning'
       return this.uiService.alertInformativa(mensaje, header, cssClass)

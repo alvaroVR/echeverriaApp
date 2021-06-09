@@ -1,46 +1,40 @@
 <app-header title="Lista Actividad" href="/gestion-task-owner"></app-header>
-<ion-content fullscreen *ngIf="actividades.length > 0">
-  <ion-list-header mode="md">
-    Proyecto {{actividades[0].proyect_name}}
-  </ion-list-header>
+<ion-content scroll-y class="test">
+  <div *ngIf="actividades.length > 0">
+    <ion-list-header mode="md">
+      Proyecto {{actividades[0].proyect_name}}
+    </ion-list-header>
 
-  <!--ion-card>
-    <ion-item *ngFor="let actividad of actividades">
-      <ion-label>
-        <h3>Actividad: {{actividad.idtask}}</h3>
-        <h3>Cantidad: {{actividad.qty_ejecutar}}</h3>
-        <p>Fecaha Inicio: {{actividad.start_date}} - Fecha Termino: {{actividad.finish_date}}</p>
-      </ion-label>
-      <ion-button [color]="actividad.selected ? 'success' : 'primary'"
-                  [fill]="actividad.selected ? 'solid' : 'outline'"
-                  slot="end" (click)="detalleActividad(actividad)">Ingresar
-      </ion-button>
-    </ion-item>
-  </ion-card-->
-
-  <ion-card (click)="expandItem(actividad)" *ngFor="let actividad of actividades">
-    <ion-item>
-      <ion-label>
-        <h3>Actividad: {{actividad.taskname}} - {{actividad.idActivity}} </h3>
-        <h3>Cantidad: {{actividad.qty_tot_ejec}} / {{actividad.qty_ejecutar}} - HH: {{actividad.hh_PTO}} - UOM: {{actividad.uom}}</h3>
-        <p>Inicio: {{actividad.start_date}} - Termino: {{actividad.finish_date}}</p>
-        <ion-button (click)="finishAll(actividad)">Finish Act</ion-button>
-      </ion-label>
-    </ion-item>
-    <app-expandable expandHeight="300px" [expanded]="actividad.expanded">
-      <ion-item *ngFor="let fecha of actividad.tasks">
-        <p>{{fecha.fecha}}</p>
-        <ion-button
-          [color]="fecha.status === 'UNCOMPLETE' ? 'danger' : fecha.status === 'INITIATE' ? 'warning' :'primary'"
-          style="width: 100px;"
-          [fill]="actividad.selected ? 'solid' : 'outline'"
-          [disabled]="fecha.status === 'UNCOMPLETE'"
-          slot="end" (click)="detalleActividad(actividad, fecha.fecha, fecha.cant, fecha.inicio, fecha.status)">
-          {{fecha.status}}
-        </ion-button>
+    <ion-card (click)="expandItem(actividad)" *ngFor="let actividad of actividades">
+      <ion-item>
+        <ion-label>
+          <h3>Actividad: {{actividad.taskname}} - {{actividad.idActivity}} </h3>
+          <h3>Cantidad: {{actividad.qty_tot_ejec}} / {{actividad.qty_ejecutar}} - HH: {{actividad.hh_PTO}} -
+            UOM: {{actividad.uom}}</h3>
+          <p>Inicio: {{actividad.start_date}} - Termino: {{actividad.finish_date}}</p>
+          <ion-button (click)="finishAll(actividad)">Finalizar Act.</ion-button>
+        </ion-label>
       </ion-item>
-    </app-expandable>
+      <app-expandable expandHeight="300px" [expanded]="actividad.expanded">
+        <ion-item *ngFor="let fecha of actividad.tasks">
+          <p>{{fecha.fecha}}</p>
+          <ion-button
+            [color]="fecha.status === 'UNCOMPLETE' ? 'danger' : fecha.status === 'INITIATE' ? 'warning' :'primary'"
+            style="width: 100px;"
+            [fill]="actividad.selected ? 'solid' : 'outline'"
+            [disabled]="fecha.status === 'UNCOMPLETE'"
+            slot="end" (click)="detalleActividad(actividad, fecha.fecha, fecha.cant, fecha.inicio, fecha.status)">
+            {{fecha.status}}
+          </ion-button>
+        </ion-item>
+      </app-expandable>
 
-  </ion-card>
+    </ion-card>
+
+  </div>
+
 
 </ion-content>
+
+
+

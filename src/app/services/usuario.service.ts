@@ -13,7 +13,8 @@ export class UsuarioService {
   user: string = null;
   company: string = null;
 
-  constructor(private api: ApiService, private storage: Storage, private authService: AuthService) {
+  constructor(private api: ApiService, private storage: Storage, private authService: AuthService,
+              private navCtrl: NavController) {
   }
 
   public login(user: string, password: string, company: string) {
@@ -38,6 +39,15 @@ export class UsuarioService {
           this.storage.clear();
           resolve(false);
         });
+    })
+  }
+
+  public async logout(){
+    await this.storage.remove('token');
+    await this.storage.remove('user');
+    await this.storage.remove('company');
+    await this.storage.clear().then(() => {
+      this.navCtrl.navigateRoot(['login'])
     })
   }
 
