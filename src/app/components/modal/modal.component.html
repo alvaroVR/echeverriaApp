@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-capitalize">{{title}}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style="font-size: 30px; text-align: center">Seleccione</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-searchbar type="text" debounce="500" (ionChange)="getItems($event)" placeholder="Buscar"></ion-searchbar>
+      <ion-list *ngIf="!isItemAvailable">
+        <ion-item button *ngFor="let value of valores" (click)="onConfirm(value)">
+          <ion-text>
+            {{value.nombre}}
+          </ion-text>
+          <ion-checkbox slot="end" [(ngModel)]="value.checked" [checked]="value.checked"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngIf="isItemAvailable">
+        <ion-item button *ngFor="let value of searchData">
+          <ion-text>
+            {{value.nombre}}
+          </ion-text>
+          <ion-checkbox slot="end" [checked]="value.checked"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

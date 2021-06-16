@@ -22,6 +22,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/gestion-task-owner/gestion-task-owner.module').then(m => m.GestionTaskOwnerPageModule),
     canLoad: [UsuarioGuard]
   },
+  {
+    path: 'principio-dia',
+    data: {title: 'Principio Día'},
+    loadChildren: () => import('./pages/principio-dia/principio-dia.module').then(m => m.PrincipioDiaPageModule),
+    canLoad: [UsuarioGuard]
+  },
 ];
 
 @NgModule({

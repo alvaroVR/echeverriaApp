@@ -1,0 +1,34 @@
+<app-header title="Principio de Día" href="/gestion-task-owner"></app-header>
+
+<ion-content>
+  <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+    <ion-fab-button (click)="addActivity()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div *ngIf="true">
+    <ion-list-header mode="md">
+      Capataces
+    </ion-list-header>
+    <ion-card *ngFor="let capataz of capataces">
+      <ion-item (click)="navToDetail(capataz)" detail="true">
+        <ion-avatar class="image-center" slot="end" *ngIf="capataz.status_asign === 0">
+          <ion-icon name="alert-circle-sharp" [color]="'danger'"
+                    style="font-size:2rem;"></ion-icon>
+          <ion-label style="overflow: initial; font-size: xx-small;">Asignar</ion-label>
+        </ion-avatar>
+        <ion-avatar class="image-center" slot="end"
+                    *ngIf="capataz.status_start_act === 0 && capataz.status_asign === 1">
+          <ion-icon name="alert-circle-sharp" [color]="'warning'"
+                    style="font-size:2rem;"></ion-icon>
+          <ion-label style="overflow: initial; font-size: xx-small;">Cambiar</ion-label>
+        </ion-avatar>
+        <ion-label>
+          <h3>Capataz: {{capataz.worker_name}}</h3>
+          <h3>Actividad: {{capataz.activity_name}}</h3>
+          <p>Hora Inicio: {{capataz.time_start}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

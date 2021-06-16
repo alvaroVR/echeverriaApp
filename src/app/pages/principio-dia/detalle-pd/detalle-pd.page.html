@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{detallePrincipio.activity_name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Detalles Proyecto
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Compañia: {{detallePrincipio.company_name}}</p>
+      <p>Cliente: {{detallePrincipio.client_name}}</p>
+      <p>Proyecto: {{detallePrincipio.proyect_name}}</p>
+      <p>Trabajador: {{detallePrincipio.worker_name}}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Detalles Actividad
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Actividad: {{detallePrincipio.activity_name}}</p>
+      <p>Trabajador: {{detallePrincipio.worker_name}}</p>
+      <p>Inicio: {{detallePrincipio.time_start}}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
