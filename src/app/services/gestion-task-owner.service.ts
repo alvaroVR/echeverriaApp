@@ -32,6 +32,7 @@ export class GestionTaskOwnerService {
             idproyecto: det.idproyecto,
             regIdOt: det.idregot,
             hh_PTO: det.hh_PTO,
+            subpartidaname: det.subpartidaname,
             qty_tot_ejec: det.qty_tot_ejec,
             idActivity: det.idActivity,
             regIdSubpartida: det.idregsubpartida,

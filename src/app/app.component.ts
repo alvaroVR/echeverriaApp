@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {UsuarioService} from "./services/usuario.service";
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,14 @@ import {UsuarioService} from "./services/usuario.service";
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private user: UsuarioService) {
+  constructor(private user: UsuarioService, public navCtrl: NavController) {
   }
 
   cerrarSesion() {
     this.user.logout()
+  }
+
+  changePage(url) {
+    this.navCtrl.navigateForward(url)
   }
 }

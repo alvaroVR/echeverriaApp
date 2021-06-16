@@ -1,10 +1,11 @@
-<app-header title="Gestion Actividad" txtBack="Volver" href="/gestion-task-owner"></app-header>
+<app-header title="Gestion Actividad" href="/gestion-task-owner" [isBack]="true"></app-header>
 <ion-content fullscreen *ngIf="actividad">
-
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle>Proy: {{actividad.proyect_name}}</ion-card-subtitle>
-      <ion-card-subtitle>Act: {{actividad.taskname}} - {{actividad.idActivity}} | Progreso: {{actividad.qty_tot_ejec}} / {{actividad.qty_ejecutar}} | UOM: {{actividad.uom}}</ion-card-subtitle>
+      <ion-card-subtitle>Partida: {{actividad.subpartidaname}}</ion-card-subtitle>
+      <ion-card-subtitle>Act: {{actividad.taskname}} - {{actividad.idActivity}} | Progreso: {{actividad.qty_tot_ejec}}
+        / {{actividad.qty_ejecutar}} | UOM: {{actividad.uom}}</ion-card-subtitle>
       <ion-card-subtitle>Cant: {{actividad.cantidad}}</ion-card-subtitle>
     </ion-card-header>
   </ion-card>
@@ -15,6 +16,7 @@
         <ion-item>
           <ion-label position="fixed">Cant</ion-label>
           <ion-input [(ngModel)]="cantModel" [required]="flagExcep == 0"
+                     type="number"
                      formControlName="cantCtrl"
           ></ion-input>
           <span class="error ion-padding" *ngIf="isSubmitted && errorControl.cantCtrl.errors?.required">
@@ -50,18 +52,21 @@
         </ion-item>
         <ion-item>
           <ion-label position="fixed">Pausa</ion-label>
-          <ion-input [(ngModel)]="pausaModel"
+          <ion-input [(ngModel)]="pausaModel" type="number"
                      formControlName="pausaCtrl"></ion-input>
         </ion-item>
         <ion-list>
           <ion-radio-group [(ngModel)]="flagExcep" formControlName="flagExcepCtrl"
-          [required]="">
+                           [required]="">
             <ion-item>
-              <ion-label [ngClass]="{'error': isSubmitted && errorControl.flagExcepCtrl.errors?.required}">Completado</ion-label>
+              <ion-label [ngClass]="{'error': isSubmitted && errorControl.flagExcepCtrl.errors?.required}">Completado
+              </ion-label>
               <ion-radio id="1" name="val1" value="0"></ion-radio>
             </ion-item>
             <ion-item>
-              <ion-label [ngClass]="{'error': isSubmitted && errorControl.flagExcepCtrl.errors?.required}">No completado</ion-label>
+              <ion-label [ngClass]="{'error': isSubmitted && errorControl.flagExcepCtrl.errors?.required}">No
+                completado
+              </ion-label>
               <ion-radio id="2" name="val2" value="1"></ion-radio>
             </ion-item>
           </ion-radio-group>

@@ -8,6 +8,7 @@
     <ion-card (click)="expandItem(actividad)" *ngFor="let actividad of actividades">
       <ion-item>
         <ion-label>
+          <h3>Partida: {{actividad.subpartidaname}}</h3>
           <h3>Actividad: {{actividad.taskname}} - {{actividad.idActivity}} </h3>
           <h3>Cantidad: {{actividad.qty_tot_ejec}} / {{actividad.qty_ejecutar}} - HH: {{actividad.hh_PTO}} -
             UOM: {{actividad.uom}}</h3>

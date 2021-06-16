@@ -16,9 +16,9 @@
     <ion-card-content>
       <ion-searchbar type="text" debounce="500" (ionChange)="getItems($event)" placeholder="Buscar"></ion-searchbar>
       <ion-list *ngIf="!isItemAvailable">
-        <ion-item button *ngFor="let value of valores" (click)="onConfirm(value)">
+        <ion-item button *ngFor="let value of valores">
           <ion-text>
-            {{value.id}} - {{value.nombre}}
+            {{value.nombre}}
           </ion-text>
           <ion-checkbox slot="end" [(ngModel)]="value.checked" [checked]="value.checked"></ion-checkbox>
         </ion-item>
@@ -27,11 +27,12 @@
       <ion-list *ngIf="isItemAvailable">
         <ion-item button *ngFor="let value of searchData">
           <ion-text>
-            {{value.id}} - {{value.nombre}}
+            {{value.nombre}}
           </ion-text>
-          <ion-checkbox slot="end" [checked]="value.checked"></ion-checkbox>
+          <ion-checkbox slot="end" [(ngModel)]="value.checked" [checked]="value.checked"></ion-checkbox>
         </ion-item>
       </ion-list>
     </ion-card-content>
+    <ion-button color="success" expand="block" (click)="onConfirm()">Agregar</ion-button>
   </ion-card>
 </ion-content>

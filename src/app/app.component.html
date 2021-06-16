@@ -10,10 +10,10 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="true">
-            <ion-item button href="/gestion-task-owner" routerDirection="root">
+            <ion-item button (click)="changePage('/gestion-task-owner')">
               Lista de Actividad
             </ion-item>
-            <ion-item button href="/principio-dia" routerDirection="root">
+            <ion-item button (click)="changePage('/principio-dia')">
               Principio de Día
             </ion-item>
           </ion-menu-toggle>

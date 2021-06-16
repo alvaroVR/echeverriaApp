@@ -10,10 +10,7 @@ import {NavController} from "@ionic/angular";
 })
 export class PrincipioDiaPage implements OnInit {
 
-  capataces = [
-    {nombre: 'Juan Ayala', act: 'Obra Uno', horaIni: '09:30', asignacion: true},
-    {nombre: 'Ruben Araya', act: 'Obra Dos', horaIni: '10:30', asignacion: true},
-    {nombre: 'Sebastian Saavedra', act: 'Sin Asignación', horaIni: 'Sin Asignación', asignacion: false}];
+  capataces;
 
   constructor(private principioService: PrincipioDiaService, private authService: AuthService, private navCtrl: NavController) {
   }

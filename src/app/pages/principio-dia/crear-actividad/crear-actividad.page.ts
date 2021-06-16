@@ -4,6 +4,8 @@ import {ModalController} from "@ionic/angular";
 import {PrincipioDiaService} from "../../../services/principio-dia.service";
 import {AuthService} from "../../../services/auth.service";
 import {ModalService} from "../../../components/modal/modal.service";
+import * as moment from 'moment';
+import {ModalListaComponent} from "../../../components/modal-lista/modal-lista.component";
 
 @Component({
   selector: 'app-crear-actividad',
@@ -18,6 +20,7 @@ export class CrearActividadPage implements OnInit {
     ot: {nombre: null, id: null, checked: false},
     partida: {nombre: null, id: null, checked: false},
     responsable: {nombre: null, id: null, checked: false},
+    dotacion: []
   }
   getdomcompaniesRequest;
   warehouseList;
@@ -27,6 +30,15 @@ export class CrearActividadPage implements OnInit {
   otList;
   partidaList;
   responsablesList;
+  dotacionList;
+
+  empresaModel;
+
+  idActividadModel
+  actividadModel
+  uomModel
+  qtyModel
+  hhModel
 
   constructor(private modalController: ModalController, private authService: AuthService, private principioService: PrincipioDiaService,
               public modalService: ModalService) {
@@ -50,7 +62,7 @@ export class CrearActividadPage implements OnInit {
         if (data.data.dismissed) {
           return;
         }
-        debugger
+
         this.formulario.empresa.nombre = data.data.respuesta.nombre
         this.formulario.empresa.id = data.data.respuesta.id
         this.formulario.empresa.checked = data.data.respuesta.checked
@@ -176,6 +188,7 @@ export class CrearActividadPage implements OnInit {
         this.formulario.responsable.id = data.data.respuesta.id
         this.formulario.responsable.checked = data.data.respuesta.checked
         this.responsablesList.filter(responsable => responsable.id === this.formulario.responsable.id && this.formulario.responsable.checked === true ? responsable.checked = true : responsable.checked = false);
+        this.getlvdotdatetasksubpartidaot()
       }
     });
     return await modal.present();
@@ -279,7 +292,69 @@ export class CrearActividadPage implements OnInit {
     });
   }
 
-  selectDotacion(){
+  getlvdotdatetasksubpartidaot() {
+    const request = {
+      userId: this.authService.company,
+      companyIdUsr: this.authService.user,
+      companyIdSelect: this.formulario.empresa.id,
+      clientId: this.formulario.cliente.id,
+      projectId: this.formulario.proyecto.id,
+      regIdOT: this.formulario.ot.id,
+      regIdSubpartida: this.formulario.partida.id,
+      regIdTask: 1,
+      fechaTask: moment().format('DD-MM-YY'),
+      responsableId: this.formulario.responsable.id
+    }
+
+    this.principioService.getlvdotdatetasksubpartidaot(request).subscribe((response) => {
+      this.dotacionList = response.detalles
+    });
+  }
+
+  async selectDotacion() {
+    const modal = await this.modalController.create({
+      component: ModalListaComponent,
+      componentProps: {
+        title: 'Seleccione Dotación',
+        swipeToClose: true,
+        valores: this.dotacionList
+      }
+    });
+    modal.onDidDismiss().then(data => {
+      if (data) {
+        if (data.data.dismissed) {
+          return;
+        }
+        this.formulario.dotacion = data.data.respuesta
+      }
+    });
+    return await modal.present();
+  }
+
+  publicar() {
+    const request = {
+      userId: this.authService.company,
+      companyUSrId: this.authService.user,
+      companySelectId: this.formulario.empresa.id,
+      clientId: this.formulario.cliente.id,
+      projectId: this.formulario.proyecto.id,
+      regOTId: this.formulario.ot.id,
+      regSubpartidaId: this.formulario.partida.id,
+      taskId: this.idActividadModel,
+      taskName: this.actividadModel,
+      uom: this.uomModel,
+      responsableId: this.formulario.responsable.id,
+      qtyEjec: this.qtyModel,
+      hhEjec: this.hhModel,
+      regsData: this.formulario.dotacion.map(dot => ({dni: dot.id}))
+    }
+    this.principioService.puttaskemergentesubpartidaot(request).subscribe(r => {
+      console.log(r)
+    })
+
+  }
+
+  dismiss() {
 
   }
 
