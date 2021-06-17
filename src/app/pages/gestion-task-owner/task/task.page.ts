@@ -130,12 +130,15 @@ export class TaskPage implements OnInit {
       projectId: this.actividad.idproyecto,
       regIdOT: this.actividad.regIdOt,
       regIdSubpartida: this.actividad.regIdSubpartida,
-      regIdTask: 1,
+      regIdTask: this.actividad.regIdTask,
       fechaTask: moment().format('DD-MM-YY'),
       responsableId: this.actividad.idresponsable
     }
+
     this.gestionService.getlvdotdatetasksubpartidaot(request).subscribe((response) => {
       this.dotacionList = response.detalles
+      const dotacionSelected = this.dotacionList.filter(dot => dot.checked)
+      this.dotacion = dotacionSelected
     });
   }
 

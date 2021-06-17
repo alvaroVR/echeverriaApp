@@ -34,7 +34,6 @@ export class GestionTaskOwnerPage implements OnInit {
   }
 
   ngOnInit() {
-    this.prueba()
   }
 
   ionViewWillEnter() {
@@ -54,6 +53,22 @@ export class GestionTaskOwnerPage implements OnInit {
     this.gestionService.getdettaskresponsable(request).subscribe(response => {
       this.actividades = response.detalles
       this.actividadesGl = response
+    }, error => {
+      this.uiService.showMessageOkCancel('Error con los servicios', 'Existen problemas con la información', 'Reintentar').then(r => {
+        this.prueba()
+      })
+    })
+  }
+
+  doRefresh(event) {
+    const request = {
+      userId: this.authService.user,
+      companyIdUsr: this.authService.company
+    };
+    this.gestionService.getdettaskresponsable(request).subscribe(response => {
+      this.actividades = response.detalles
+      this.actividadesGl = response
+      event.target.complete();
     }, error => {
       this.uiService.showMessageOkCancel('Error con los servicios', 'Existen problemas con la información', 'Reintentar').then(r => {
         this.prueba()

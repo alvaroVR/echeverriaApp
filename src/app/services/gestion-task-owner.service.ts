@@ -57,7 +57,7 @@ export class GestionTaskOwnerService {
   //https://6k2nqb8tah.execute-api.us-east-1.amazonaws.com/eimrktplace/marketplace/putinfoownertasksubpartidaot
   putinfoownertasksubpartidaot(request) {
     const subject = new Subject<any>();
-    this.api.post(`/marketplace/putinfoownertasksubpartidaot/`,  request).subscribe((response: any) => {
+    this.api.post(`/marketplace/putinfoownertasksubpartidaot/`, request).subscribe((response: any) => {
       subject.next(response);
     }, error => {
       return subject.error(error);
@@ -77,7 +77,7 @@ export class GestionTaskOwnerService {
 
   getlvdotdatetasksubpartidaot(request) {
     const subject = new Subject<any>();
-    this.api.get(`/marketplace/getlvdotdatetasksubpartidaot`,  request).subscribe((response: any) => {
+    this.api.get(`/marketplace/getlvdotdatetasksubpartidaot`, request).subscribe((response: any) => {
       const respuesta = {
         code: response.code,
         error: response.error,
@@ -85,7 +85,7 @@ export class GestionTaskOwnerService {
           return {
             id: resp.dni,
             nombre: resp.nombre ? resp.nombre : '',
-            checked: false
+            checked: resp.flag === 1
           }
         })
       }
