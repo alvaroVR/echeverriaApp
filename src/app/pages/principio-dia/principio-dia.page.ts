@@ -17,6 +17,10 @@ export class PrincipioDiaPage implements OnInit {
 
 
   ngOnInit() {
+
+  }
+
+  ionViewWillEnter() {
     this.getinfoiniciodiasupervisor()
   }
 

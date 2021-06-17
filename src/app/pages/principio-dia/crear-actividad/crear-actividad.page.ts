@@ -35,11 +35,11 @@ export class CrearActividadPage implements OnInit {
 
   empresaModel;
 
-  idActividadModel
-  actividadModel
-  uomModel
-  qtyModel
-  hhModel
+  idActividadModel;
+  actividadModel;
+  uomModel;
+  qtyModel;
+  hhModel;
 
   constructor(private modalController: ModalController, private authService: AuthService, private principioService: PrincipioDiaService,
               public alertMsg: UiserviceService, public navCtrl: NavController) {
@@ -112,13 +112,13 @@ export class CrearActividadPage implements OnInit {
         if (data.data.dismissed) {
           return;
         }
-        this.formulario.proyecto.nombre = data.data.respuesta.nombre
-        this.formulario.proyecto.id = data.data.respuesta.id
-        this.formulario.proyecto.checked = data.data.respuesta.checked
+        this.formulario.proyecto.nombre = data.data.respuesta.nombre;
+        this.formulario.proyecto.id = data.data.respuesta.id;
+        this.formulario.proyecto.checked = data.data.respuesta.checked;
         this.projectList.filter(proyecto => proyecto.id === this.formulario.proyecto.id && this.formulario.proyecto.checked === true ? proyecto.checked = true : proyecto.checked = false);
-        this.getdetactivitypplan()
-        this.getdetlistot()
-        this.getdomtasksubpartidasresponsables()
+        this.getdetactivitypplan();
+        this.getdetlistot();
+        this.getdomtasksubpartidasresponsables();
       }
     });
     return await modal.present();
@@ -296,18 +296,10 @@ export class CrearActividadPage implements OnInit {
   getlvdotdatetasksubpartidaot() {
     const request = {
       userId: this.authService.company,
-      companyIdUsr: this.authService.user,
-      companyIdSelect: this.formulario.empresa.id,
-      clientId: this.formulario.cliente.id,
-      projectId: this.formulario.proyecto.id,
-      regIdOT: this.formulario.ot.id,
-      regIdSubpartida: this.formulario.partida.id,
-      regIdTask: 1,
-      fechaTask: moment().format('DD-MM-YY'),
       responsableId: this.formulario.responsable.id
     }
-
-    this.principioService.getlvdotdatetasksubpartidaot(request).subscribe((response) => {
+    //getdotaciontaskemergente?userId=cbernabe&responsableId=14099105-8
+    this.principioService.getdotaciontaskemergente(request).subscribe((response) => {
       this.dotacionList = response.detalles
     });
   }

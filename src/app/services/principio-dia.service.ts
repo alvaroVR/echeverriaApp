@@ -190,6 +190,27 @@ export class PrincipioDiaService {
     return subject;
   }
 
+  getdotaciontaskemergente(query) {
+    const subject = new Subject<any>();
+    this.api.get(`/marketplace/getdotaciontaskemergente`, query).subscribe((response: any) => {
+      const respuesta = {
+        code: response.code,
+        error: response.error,
+        detalles: response.detalles.map(resp => {
+          return {
+            id: resp.dni,
+            nombre: resp.nombre ? resp.nombre : '',
+            checked: false
+          }
+        })
+      }
+      subject.next(respuesta);
+    }, error => {
+      subject.error(error);
+    });
+    return subject;
+  }
+
   puttaskemergentesubpartidaot(request) {
     const subject = new Subject<any>();
     this.api.post(`/marketplace/puttaskemergentesubpartidaot`, request).subscribe((response: any) => {

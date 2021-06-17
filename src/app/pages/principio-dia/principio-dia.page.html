@@ -12,7 +12,7 @@
     </ion-list-header>
     <ion-card *ngFor="let capataz of capataces">
       <ion-item (click)="navToDetail(capataz)" detail="true">
-        <ion-avatar class="image-center" slot="end" *ngIf="capataz.status_asign === 0">
+        <ion-avatar class="image-center" slot="end" *ngIf="capataz.status_asign === 0 && capataz.status_start_act === 0">
           <ion-icon name="alert-circle-sharp" [color]="'danger'"
                     style="font-size:2rem;"></ion-icon>
           <ion-label style="overflow: initial; font-size: xx-small;">Asignar</ion-label>
@@ -21,7 +21,13 @@
                     *ngIf="capataz.status_start_act === 0 && capataz.status_asign === 1">
           <ion-icon name="alert-circle-sharp" [color]="'warning'"
                     style="font-size:2rem;"></ion-icon>
-          <ion-label style="overflow: initial; font-size: xx-small;">Cambiar</ion-label>
+          <ion-label style="overflow: initial; font-size: xx-small;">Iniciar</ion-label>
+        </ion-avatar>
+        <ion-avatar class="image-center" slot="end"
+                    *ngIf="capataz.status_start_act === 1 && capataz.status_asign === 1">
+          <ion-icon name="alert-circle-sharp" [color]="'success'"
+                    style="font-size:2rem;"></ion-icon>
+          <ion-label style="overflow: initial; font-size: xx-small;">OK</ion-label>
         </ion-avatar>
         <ion-label>
           <h3>Capataz: {{capataz.worker_name}}</h3>
