@@ -24,6 +24,17 @@ export class PrincipioDiaPage implements OnInit {
     this.getinfoiniciodiasupervisor()
   }
 
+  doRefresh(event) {
+    const query = {
+      userId: this.authService.user,
+      companyIdUsr: this.authService.company
+    }
+    this.principioService.getinfoiniciodiasupervisor(query).subscribe(response => {
+      this.capataces = response.detalles
+      event.target.complete();
+    })
+  }
+
   getinfoiniciodiasupervisor() {
     const query = {
       userId: this.authService.user,
