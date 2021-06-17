@@ -37,6 +37,7 @@ export class GestionTaskOwnerService {
             idActivity: det.idActivity,
             regIdSubpartida: det.idregsubpartida,
             regIdTask: det.idregtask,
+            idresponsable: det.idresponsable,
             fecha: det.fecha,
             tasks: det.tasks,
             cantInitiate: det.cantInitiate,
@@ -53,9 +54,10 @@ export class GestionTaskOwnerService {
     return subject;
   }
 
-  post(request) {
+  //https://6k2nqb8tah.execute-api.us-east-1.amazonaws.com/eimrktplace/marketplace/putinfoownertasksubpartidaot
+  putinfoownertasksubpartidaot(request) {
     const subject = new Subject<any>();
-    this.api.post(`/marketplace/putInfoOwnerTaskSubPartidaOT/`, null, request).subscribe((response: any) => {
+    this.api.post(`/marketplace/putinfoownertasksubpartidaot/`,  request).subscribe((response: any) => {
       subject.next(response);
     }, error => {
       return subject.error(error);
@@ -67,6 +69,27 @@ export class GestionTaskOwnerService {
     const subject = new Subject<any>();
     this.api.post(`/marketplace/putcloseactivity`, null, request).subscribe((response: any) => {
       subject.next(response);
+    }, error => {
+      return subject.error(error);
+    });
+    return subject.asObservable();
+  }
+
+  getlvdotdatetasksubpartidaot(request) {
+    const subject = new Subject<any>();
+    this.api.get(`/marketplace/getlvdotdatetasksubpartidaot`,  request).subscribe((response: any) => {
+      const respuesta = {
+        code: response.code,
+        error: response.error,
+        detalles: response.detalles.map(resp => {
+          return {
+            id: resp.dni,
+            nombre: resp.nombre ? resp.nombre : '',
+            checked: false
+          }
+        })
+      }
+      subject.next(respuesta);
     }, error => {
       return subject.error(error);
     });

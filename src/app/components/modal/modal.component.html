@@ -20,16 +20,16 @@
           <ion-text>
             {{value.id}} - {{value.nombre}}
           </ion-text>
-          <ion-checkbox slot="end" [(ngModel)]="value.checked" [checked]="value.checked"></ion-checkbox>
+          <ion-checkbox name="prueba" ngDefaultControl slot="end" [(ngModel)]="value.checked" [checked]="value.checked"></ion-checkbox>
         </ion-item>
       </ion-list>
 
       <ion-list *ngIf="isItemAvailable">
-        <ion-item button *ngFor="let value of searchData">
+        <ion-item button *ngFor="let value of searchData" (click)="onConfirm(value)">
           <ion-text>
             {{value.id}} - {{value.nombre}}
           </ion-text>
-          <ion-checkbox slot="end" [checked]="value.checked"></ion-checkbox>
+          <ion-checkbox slot="end" ngDefaultControl [checked]="value.checked"></ion-checkbox>
         </ion-item>
       </ion-list>
     </ion-card-content>

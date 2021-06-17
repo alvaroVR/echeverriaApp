@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalComponent} from "../../../components/modal/modal.component";
-import {ModalController} from "@ionic/angular";
+import {ModalController, NavController} from "@ionic/angular";
 import {PrincipioDiaService} from "../../../services/principio-dia.service";
 import {AuthService} from "../../../services/auth.service";
 import {ModalService} from "../../../components/modal/modal.service";
 import * as moment from 'moment';
 import {ModalListaComponent} from "../../../components/modal-lista/modal-lista.component";
+import {UiserviceService} from "../../../services/uiservice.service";
 
 @Component({
   selector: 'app-crear-actividad',
@@ -41,7 +42,7 @@ export class CrearActividadPage implements OnInit {
   hhModel
 
   constructor(private modalController: ModalController, private authService: AuthService, private principioService: PrincipioDiaService,
-              public modalService: ModalService) {
+              public alertMsg: UiserviceService, public navCtrl: NavController) {
   }
 
   ngOnInit() {
@@ -348,10 +349,18 @@ export class CrearActividadPage implements OnInit {
       hhEjec: this.hhModel,
       regsData: this.formulario.dotacion.map(dot => ({dni: dot.id}))
     }
-    this.principioService.puttaskemergentesubpartidaot(request).subscribe(r => {
-      console.log(r)
+    this.alertMsg.showMessageOkCancel('Información', '¿Estás seguro de publicar?', 'Publicar', 'Cancelar').then(r => {
+      if (r.data) {
+        this.principioService.puttaskemergentesubpartidaot(request).subscribe((response) => {
+          if (response.code != 0) {
+            this.alertMsg.alertInformativa(response.error);
+            return
+          }
+          this.alertMsg.presentToast('Actividad publicada', 'success')
+          this.navCtrl.navigateBack('/principio-dia')
+        })
+      }
     })
-
   }
 
   dismiss() {

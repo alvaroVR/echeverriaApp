@@ -20,8 +20,7 @@
         <ion-label>
           Empresa
         </ion-label>
-        <ion-label *ngIf="formulario.empresa.nombre" style="white-space: pre-line;font-size: small"
-                   [(ngModel)]="empresaModel">
+        <ion-label *ngIf="formulario.empresa.nombre" style="white-space: pre-line;font-size: small">
           {{formulario.empresa.nombre | titlecase}}
         </ion-label>
         <ion-label *ngIf="!formulario.empresa.nombre" class="text-muted">Seleccione</ion-label>

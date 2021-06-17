@@ -19,8 +19,8 @@ import {ModalListaComponent} from "../../../components/modal-lista/modal-lista.c
     CrearActividadPageRoutingModule,
     TaskPageModule
   ],
-  exports: [ModalComponent, ModalListaComponent],
-  declarations: [CrearActividadPage, ModalComponent, ModalListaComponent]
+  exports: [],
+  declarations: [CrearActividadPage]
 })
 export class CrearActividadPageModule {
 }

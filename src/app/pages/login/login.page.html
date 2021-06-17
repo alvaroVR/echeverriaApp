@@ -39,9 +39,19 @@
             <ion-col>
               <ion-button type="submit"
                           color="tertiary"
+                          *ngIf="!submitted"
                           shape="round">
                 Iniciar Sesión
               </ion-button>
+
+              <ion-button type="submit"
+                          *ngIf="submitted"
+                          color="tertiary"
+                          shape="round"
+              disabled>
+                Iniciando Sesión <ion-spinner color="warning" style="width: 20px;height: 20px;"></ion-spinner>
+              </ion-button>
+
             </ion-col>
           </ion-row>
         </ion-grid>

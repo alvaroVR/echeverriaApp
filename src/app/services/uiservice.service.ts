@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AlertController, LoadingController} from "@ionic/angular";
+import {AlertController, LoadingController, ToastController} from "@ionic/angular";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class UiserviceService {
   isLoading = false;
   loading: HTMLIonLoadingElement;
 
-  constructor(private alertController: AlertController, public loadingController: LoadingController) {
+  constructor(private alertController: AlertController, public loadingController: LoadingController, public toastController: ToastController) {
   }
 
   async alertInformativa(message: string, header?: string, cssClass?) {
@@ -72,6 +72,17 @@ export class UiserviceService {
       this.isLoading = false;
       return await this.loadingController.dismiss().then(() => console.log('loading dismissed'));
     }
+  }
+
+  async presentToast(message, type: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color: type,
+      //cssClass: 'toast-custom-class',
+      translucent: true
+    });
+    await toast.present();
   }
 
 

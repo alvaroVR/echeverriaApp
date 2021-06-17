@@ -20,6 +20,7 @@ import {ExpandableComponent} from '../../../components/expandable/expandable.com
   ],
   exports: [
     HeaderComponent,
+
   ],
   declarations: [TaskPage, HeaderComponent]
 })

@@ -13,11 +13,14 @@ import {SplashScreen} from "@ionic-native/splash-screen/ngx";
 import {Geolocation} from "@ionic-native/geolocation/ngx";
 import {Camera} from "@ionic-native/camera/ngx";
 import {FileTransfer} from "@ionic-native/file-transfer/ngx";
+import {ModalListaComponent} from "./components/modal-lista/modal-lista.component";
+import {FormsModule} from "@angular/forms";
+import {ModalComponent} from "./components/modal/modal.component";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ModalListaComponent, ModalComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicStorageModule.forRoot()],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicStorageModule.forRoot(), FormsModule],
   providers: [
     StatusBar,
     SplashScreen,

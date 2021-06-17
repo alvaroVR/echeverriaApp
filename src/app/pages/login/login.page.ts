@@ -17,6 +17,8 @@ export class LoginPage implements OnInit {
     company: ''
   };
 
+  submitted = false
+
   constructor(private usuarioService: UsuarioService, private navCtrl: NavController, private uiService: UiserviceService) {
   }
 
@@ -24,6 +26,7 @@ export class LoginPage implements OnInit {
   }
 
   async login(fLogin: NgForm) {
+    this.submitted = true;
     if (fLogin.invalid) {
       return;
     }
@@ -31,6 +34,7 @@ export class LoginPage implements OnInit {
     if (valido) {
       this.navCtrl.navigateRoot('/gestion-task-owner', {animated: true});
     } else {
+      this.submitted = false
       this.uiService.alertInformativa('Información de usuario no es correcta.')
     }
   }
