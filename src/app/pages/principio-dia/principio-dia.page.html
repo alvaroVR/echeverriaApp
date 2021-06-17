@@ -13,7 +13,7 @@
     <ion-card *ngFor="let capataz of capataces">
       <ion-item (click)="navToDetail(capataz)" detail="true">
         <ion-avatar class="image-center" slot="end" *ngIf="capataz.status_asign === 0 && capataz.status_start_act === 0">
-          <ion-icon name="alert-circle-sharp" [color]="'danger'"
+          <ion-icon name="close-circle-sharp" [color]="'danger'"
                     style="font-size:2rem;"></ion-icon>
           <ion-label style="overflow: initial; font-size: xx-small;">Asignar</ion-label>
         </ion-avatar>
@@ -25,7 +25,7 @@
         </ion-avatar>
         <ion-avatar class="image-center" slot="end"
                     *ngIf="capataz.status_start_act === 1 && capataz.status_asign === 1">
-          <ion-icon name="alert-circle-sharp" [color]="'success'"
+          <ion-icon name="checkmark-circle-sharp" [color]="'success'"
                     style="font-size:2rem;"></ion-icon>
           <ion-label style="overflow: initial; font-size: xx-small;">OK</ion-label>
         </ion-avatar>
