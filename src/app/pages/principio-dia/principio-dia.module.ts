@@ -8,6 +8,7 @@ import { PrincipioDiaPageRoutingModule } from './principio-dia-routing.module';
 
 import { PrincipioDiaPage } from './principio-dia.page';
 import {TaskPageModule} from "../gestion-task-owner/task/task.module";
+import {ExpandableComponent} from "../../components/expandable/expandable.component";
 
 @NgModule({
   imports: [
@@ -17,6 +18,9 @@ import {TaskPageModule} from "../gestion-task-owner/task/task.module";
     PrincipioDiaPageRoutingModule,
     TaskPageModule
   ],
-  declarations: [PrincipioDiaPage]
+  exports: [
+    ExpandableComponent
+  ],
+  declarations: [PrincipioDiaPage, ExpandableComponent]
 })
 export class PrincipioDiaPageModule {}

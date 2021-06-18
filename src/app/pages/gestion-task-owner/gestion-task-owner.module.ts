@@ -10,6 +10,7 @@ import { GestionTaskOwnerPage } from './gestion-task-owner.page';
 import {TaskPageModule} from "./task/task.module";
 import {ExpandableComponent} from "../../components/expandable/expandable.component";
 import {HeaderComponent} from "../../components/header/header.component";
+import {PrincipioDiaPageModule} from "../principio-dia/principio-dia.module";
 
 @NgModule({
   imports: [
@@ -17,11 +18,10 @@ import {HeaderComponent} from "../../components/header/header.component";
     FormsModule,
     IonicModule,
     GestionTaskOwnerPageRoutingModule,
-    TaskPageModule
+    TaskPageModule,
+    PrincipioDiaPageModule
   ],
-  exports: [
-    ExpandableComponent,
-  ],
-  declarations: [GestionTaskOwnerPage, ExpandableComponent]
+  exports: [],
+  declarations: [GestionTaskOwnerPage]
 })
 export class GestionTaskOwnerPageModule {}

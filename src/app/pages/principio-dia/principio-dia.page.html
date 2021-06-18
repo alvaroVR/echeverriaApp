@@ -16,7 +16,51 @@
     <ion-list-header mode="md">
       Capataces
     </ion-list-header>
-    <ion-card *ngFor="let capataz of capataces">
+
+    <ion-reorder-group (ionItemReorder)="onRenderItems($event)" [disabled]="ordenar">
+      <ion-card (click)="expandItem(capataz)" *ngFor="let capataz of capataces">
+        <ion-reorder>
+          <ion-item
+            [class]="{'success': capataz.status === 2, 'warning': capataz.status === 1, 'danger': capataz.status === 0}">
+
+            <ion-label>
+              <h4 class="text">{{capataz.worker_name}}</h4>
+              <h4>Partida: {{capataz.subpartida_name}}</h4>
+
+            </ion-label>
+          </ion-item>
+        </ion-reorder>
+        <app-expandable expandHeight="300px" [expanded]="capataz.expandable">
+          <ion-item *ngFor="let actividad of capataz.actividades" (click)="navToDetail(capataz)" class="test">
+            <ion-label>
+              <h4>Actividad: {{actividad.activity_name}}</h4>
+              <p>Hora Inicio: {{actividad.time_start}}</p>
+            </ion-label>
+
+            <ion-avatar class="image-center" slot="end"
+                        *ngIf="actividad.status_asign === 0 && actividad.status_start_act === 0">
+              <ion-icon name="close-circle-sharp" [color]="'danger'"
+                        style="font-size:2rem;"></ion-icon>
+            </ion-avatar>
+            <ion-avatar class="image-center" slot="end"
+                        *ngIf="actividad.status_asign === 1 && actividad.status_start_act === 0">
+              <ion-icon name="alert-circle-sharp" [color]="'warning'"
+                        style="font-size:2rem;"></ion-icon>
+            </ion-avatar>
+            <ion-avatar class="image-center" slot="end"
+                        *ngIf="actividad.status_asign === 1 && actividad.status_start_act === 1">
+              <ion-icon name="checkmark-circle-sharp" [color]="'success'"
+                        style="font-size:2rem;"></ion-icon>
+            </ion-avatar>
+
+          </ion-item>
+        </app-expandable>
+      </ion-card>
+    </ion-reorder-group>
+
+    <!--ion-button color="success" expand="block" type="button" (click)="reordenar()">Ordenar</ion-button-->
+
+    <!--ion-card *ngFor="let capataz of capataces">
       <ion-item (click)="navToDetail(capataz)" detail="true">
         <ion-avatar class="image-center" slot="end" *ngIf="capataz.status_asign === 0 && capataz.status_start_act === 0">
           <ion-icon name="close-circle-sharp" [color]="'danger'"
@@ -42,6 +86,6 @@
           <p>Hora Inicio: {{capataz.time_start}}</p>
         </ion-label>
       </ion-item>
-    </ion-card>
+    </ion-card-->
   </div>
 </ion-content>

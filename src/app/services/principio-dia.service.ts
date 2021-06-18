@@ -13,7 +13,8 @@ export class PrincipioDiaService {
   //getinfoiniciodiasupervisor?userId=cbernabe&companyIdUsr=90844000-5
   getinfoiniciodiasupervisor(query) {
     const subject = new Subject<any>();
-    this.api.get(`/marketplace/getinfoiniciodiasupervisor`, query).subscribe((response: any) => {
+    this.api.get(`/marketplace/getinfoiniciodiasupervisor2`, query).subscribe((response: any) => {
+
       subject.next(response);
     }, error => {
       subject.error(error);

@@ -1,9 +1,32 @@
-.image-center{
-  margin:0 auto !important;
+.image-center {
+  margin: 0 auto !important;
 }
-h4{
+
+h4 {
   font-size: 13px;
 }
-p{
+
+p {
   font-size: 12px;
+}
+
+.danger {
+  --background: #ffb3ba !important;
+}
+
+.warning {
+  --background: #ffdfba !important;
+}
+
+.success {
+  --background: #baffc9 !important;
+}
+
+.text {
+  font-weight: bolder;
+}
+
+
+.test {
+  --background: ivory;
 }

@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
 
@@ -16,6 +16,7 @@ import {FileTransfer} from "@ionic-native/file-transfer/ngx";
 import {ModalListaComponent} from "./components/modal-lista/modal-lista.component";
 import {FormsModule} from "@angular/forms";
 import {ModalComponent} from "./components/modal/modal.component";
+import {ExpandableComponent} from "./components/expandable/expandable.component";
 
 @NgModule({
   declarations: [AppComponent, ModalListaComponent, ModalComponent],
@@ -29,6 +30,7 @@ import {ModalComponent} from "./components/modal/modal.component";
     FileTransfer,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: []
 })
 export class AppModule {

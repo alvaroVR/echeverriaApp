@@ -11,6 +11,7 @@ import {NavController} from "@ionic/angular";
 export class PrincipioDiaPage implements OnInit {
 
   capataces;
+  ordenar = true;
 
   constructor(private principioService: PrincipioDiaService, private authService: AuthService, private navCtrl: NavController) {
   }
@@ -30,7 +31,12 @@ export class PrincipioDiaPage implements OnInit {
       companyIdUsr: this.authService.company
     }
     this.principioService.getinfoiniciodiasupervisor(query).subscribe(response => {
-      this.capataces = response.detalles
+      this.capataces = response.detalles.map(cap => {
+        return {
+          ...cap,
+          expandable: false
+        };
+      });
       event.target.complete();
     })
   }
@@ -41,9 +47,13 @@ export class PrincipioDiaPage implements OnInit {
       companyIdUsr: this.authService.company
     }
     this.principioService.getinfoiniciodiasupervisor(query).subscribe(response => {
-      this.capataces = response.detalles
-      console.log(this.capataces)
-    })
+      this.capataces = response.detalles.map(cap => {
+        return {
+          ...cap,
+          expandable: false
+        };
+      });
+    });
   }
 
   navToDetail(detalle) {
@@ -52,6 +62,25 @@ export class PrincipioDiaPage implements OnInit {
 
   addActivity() {
     this.navCtrl.navigateForward(['principio-dia/crear-actividad']);
+  }
+
+  onRenderItems(event) {
+    const draggedItem = this.capataces.splice(event.detail.from, 1)[0];
+    this.capataces.splice(event.detail.to, 0, draggedItem);
+    event.detail.complete();
+  }
+
+  reordenar() {
+    this.ordenar = this.ordenar !== true;
+  }
+
+  expandItem(capataz) {
+    if (!capataz.expandable) {
+      this.capataces.map(capat => {
+        capat.expandable = false
+      })
+    }
+    capataz.expandable = capataz.expandable !== true;
   }
 
 }
