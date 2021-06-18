@@ -22,11 +22,13 @@
         <ion-reorder>
           <ion-item
             [class]="{'success': capataz.status === 2, 'warning': capataz.status === 1, 'danger': capataz.status === 0}">
-
+            <ion-icon name="chevron-up-outline" *ngIf="capataz.expandable" size="small" slot="end"
+                      [ngClass]="capataz.expandable ? 'show' : 'hide'"></ion-icon>
+            <ion-icon name="chevron-down-outline" *ngIf="!capataz.expandable" size="small" slot="end"
+                      [ngClass]="capataz.expandable ? 'show' : 'hide'"></ion-icon>
             <ion-label>
               <h4 class="text">{{capataz.worker_name}}</h4>
               <h4>Partida: {{capataz.subpartida_name}}</h4>
-
             </ion-label>
           </ion-item>
         </ion-reorder>

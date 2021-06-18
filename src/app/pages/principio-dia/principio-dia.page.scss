@@ -30,3 +30,18 @@ p {
 .test {
   --background: ivory;
 }
+
+.turn {
+  transition: max-height 0.4s ease-in-out;
+  overflow: hidden;
+  height: auto;
+}
+
+.hide {
+  -webkit-transition: opacity ease-in-out .5s;
+  -moz-transition: opacity ease-in-out .5s;
+  -o-transition: opacity ease-in-out .5s;
+  transition: opacity ease-in-out .5s;
+
+  opacity: 1;
+}
