@@ -216,9 +216,7 @@ export class PrincipioDiaService {
     const subject = new Subject<any>();
     this.api.post(`/marketplace/puttaskemergentesubpartidaot`, request).subscribe((response: any) => {
       subject.next(response);
-    }, error => {
-      return subject.error(error);
-    });
+    }, error => subject.error(error));
     return subject.asObservable();
   }
 

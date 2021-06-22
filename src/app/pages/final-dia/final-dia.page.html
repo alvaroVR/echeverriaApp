@@ -1,0 +1,47 @@
+<app-header title="Final de Día" href="/gestion-task-owner"></app-header>
+<ion-content scroll-y class="test">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingText="Actualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="trabajadores.length > 0">
+    <ion-list-header mode="md">
+      Actividades
+    </ion-list-header>
+    <ion-card *ngFor="let trabajador of trabajadores">
+      <ion-item (click)="expandItem(trabajador)" [class]="{'success': trabajador.imp > 2, 'danger': trabajador.imp < 0}">
+        <ion-icon name="chevron-up-outline" *ngIf="trabajador.expandable" size="small" slot="end"
+                  [ngClass]="trabajador.expandable ? 'show' : 'hide'"></ion-icon>
+        <ion-icon name="chevron-down-outline" *ngIf="!trabajador.expandable" size="small" slot="end"
+                  [ngClass]="trabajador.expandable ? 'show' : 'hide'"></ion-icon>
+        <ion-label>
+          <h4 class="text">{{trabajador.worker_name}}</h4>
+          <h4>HH: {{trabajador.hh}} - Imp:{{trabajador.imp}}</h4>
+        </ion-label>
+      </ion-item>
+      <app-expandable expandHeight="300px" [expanded]="trabajador.expandable">
+        <ion-item *ngFor="let actividad of trabajador.actividades" class="test">
+          <ion-label>
+            <h4>Actividad: {{actividad.nombre}}</h4>
+            <p *ngIf="!actividad.editable">HH: {{actividad.hh}}</p>
+            <ion-item *ngIf="actividad.editable">
+              <ion-label position="fixed">HH</ion-label>
+              <ion-input style="text-align: right" [min]="0" type="number"
+                         [(ngModel)]="actividad.hh"></ion-input>
+            </ion-item>
+          </ion-label>
+          <ion-button shape="round" color="danger" (click)="editar(actividad)" *ngIf="!actividad.editable">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </ion-button>
+          <ion-button shape="round" color="success" (click)="terminarEdicion(actividad)" *ngIf="actividad.editable">
+            <ion-icon name="lock-open-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </app-expandable>
+    </ion-card>
+  </div>
+
+</ion-content>

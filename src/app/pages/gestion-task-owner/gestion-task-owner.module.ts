@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -11,6 +11,7 @@ import {TaskPageModule} from "./task/task.module";
 import {ExpandableComponent} from "../../components/expandable/expandable.component";
 import {HeaderComponent} from "../../components/header/header.component";
 import {PrincipioDiaPageModule} from "../principio-dia/principio-dia.module";
+import {ComponentsModule} from "../../components/components.module";
 
 @NgModule({
   imports: [
@@ -19,9 +20,11 @@ import {PrincipioDiaPageModule} from "../principio-dia/principio-dia.module";
     IonicModule,
     GestionTaskOwnerPageRoutingModule,
     TaskPageModule,
-    PrincipioDiaPageModule
+    PrincipioDiaPageModule,
+    ComponentsModule
   ],
   exports: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [GestionTaskOwnerPage]
 })
 export class GestionTaskOwnerPageModule {}

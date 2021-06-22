@@ -17,11 +17,13 @@ import {ModalListaComponent} from "./components/modal-lista/modal-lista.componen
 import {FormsModule} from "@angular/forms";
 import {ModalComponent} from "./components/modal/modal.component";
 import {ExpandableComponent} from "./components/expandable/expandable.component";
+import {ComponentsModule} from "./components/components.module";
 
 @NgModule({
-  declarations: [AppComponent, ModalListaComponent, ModalComponent],
+  declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicStorageModule.forRoot(), FormsModule],
+  imports: [ComponentsModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicStorageModule.forRoot(),
+    FormsModule],
   providers: [
     StatusBar,
     SplashScreen,

@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/principio-dia/principio-dia.module').then(m => m.PrincipioDiaPageModule),
     canLoad: [UsuarioGuard]
   },
+  {
+    path: 'final-dia',
+    loadChildren: () => import('./pages/final-dia/final-dia.module').then( m => m.FinalDiaPageModule),
+    canLoad: [UsuarioGuard]
+  },
 ];
 
 @NgModule({
