@@ -12,7 +12,8 @@
       Actividades
     </ion-list-header>
     <ion-card *ngFor="let trabajador of trabajadores">
-      <ion-item (click)="expandItem(trabajador)" [class]="{'success': trabajador.imp > 2, 'danger': trabajador.imp < 0}">
+      <ion-item (click)="expandItem(trabajador)"
+                [class]="{'success': trabajador.imp > 2, 'danger': trabajador.imp < 0}">
         <ion-icon name="chevron-up-outline" *ngIf="trabajador.expandable" size="small" slot="end"
                   [ngClass]="trabajador.expandable ? 'show' : 'hide'"></ion-icon>
         <ion-icon name="chevron-down-outline" *ngIf="!trabajador.expandable" size="small" slot="end"
@@ -23,7 +24,7 @@
         </ion-label>
       </ion-item>
       <app-expandable expandHeight="300px" [expanded]="trabajador.expandable">
-        <ion-item *ngFor="let actividad of trabajador.actividades" class="test">
+        <ion-item *ngFor="let actividad of trabajador.actividades" class="bgCard">
           <ion-label>
             <h4>Actividad: {{actividad.nombre}}</h4>
             <p *ngIf="!actividad.editable">HH: {{actividad.hh}}</p>
@@ -33,12 +34,14 @@
                          [(ngModel)]="actividad.hh"></ion-input>
             </ion-item>
           </ion-label>
-          <ion-button shape="round" color="danger" (click)="editar(actividad)" *ngIf="!actividad.editable">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-          </ion-button>
-          <ion-button shape="round" color="success" (click)="terminarEdicion(actividad)" *ngIf="actividad.editable">
-            <ion-icon name="lock-open-outline"></ion-icon>
-          </ion-button>
+          <ion-avatar class="image-center" slot="end">
+            <ion-button shape="round" color="danger" (click)="editar(actividad)" *ngIf="!actividad.editable">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+            </ion-button>
+            <ion-button shape="round" color="success" (click)="terminarEdicion(actividad)" *ngIf="actividad.editable">
+              <ion-icon name="lock-open-outline"></ion-icon>
+            </ion-button>
+          </ion-avatar>
         </ion-item>
       </app-expandable>
     </ion-card>

@@ -82,7 +82,6 @@ export class FinalDiaPage implements OnInit {
           dni: actividad.dni,
           hh: actividad.hh
         }
-        debugger
         this.uiservice.presentLoading('Ejecutando edición')
         this.finalDiaService.putfindiacapatazdothh(request).subscribe(r => {
           this.uiservice.dismissLoading()
@@ -90,8 +89,12 @@ export class FinalDiaPage implements OnInit {
             this.uiservice.alertInformativa(r.error, 'Error')
           }
           actividad.editable = actividad.editable !== true
+          this.uiservice.presentToast('Actividad Editada', 'success')
+          this.getinfofindiacapataz()
         })
+        return
       }
+
     })
 
   }

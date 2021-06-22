@@ -1,3 +1,20 @@
 .item-input.sc-ion-label-md-h, .item-input .sc-ion-label-md-h {
   max-width: 350px!important;
 }
+
+.danger {
+  --background: #ffb3ba !important;
+}
+
+.warning {
+  --background: #ffdfba !important;
+}
+
+.success {
+  --background: #baffc9 !important;
+}
+
+
+.bgCard {
+  --background: ivory;
+}
