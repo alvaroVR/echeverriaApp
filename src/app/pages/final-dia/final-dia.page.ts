@@ -80,7 +80,8 @@ export class FinalDiaPage implements OnInit {
           regTaskId: actividad.idregactivity,
           fechaEjec: moment().format('DD-MM-YYYY'),
           dni: actividad.dni,
-          hh: actividad.hh
+          hh: actividad.hh,
+          hhExtras: actividad.hhextras
         }
         this.uiservice.presentLoading('Ejecutando edición')
         this.finalDiaService.putfindiacapatazdothh(request).subscribe(r => {

@@ -12,9 +12,8 @@
       Proyecto {{actividades[0].proyect_name}}
     </ion-list-header>
 
-    <ion-card (click)="expandItem(actividad)" *ngFor="let actividad of actividades">
-      <ion-reorder>
-        <ion-item>
+    <ion-card *ngFor="let actividad of actividades">
+        <ion-item (click)="expandItem(actividad)" >
           <ion-label>
             <h3>Partida: {{actividad.subpartidaname}}</h3>
             <h3>Actividad: {{actividad.taskname}} - {{actividad.idActivity}} </h3>
@@ -24,7 +23,6 @@
             <ion-button (click)="finishAll(actividad)">Finalizar Act.</ion-button>
           </ion-label>
         </ion-item>
-      </ion-reorder>
       <app-expandable expandHeight="300px" [expanded]="actividad.expanded">
         <ion-item *ngFor="let fecha of actividad.tasks">
           <p>{{fecha.fecha}}</p>

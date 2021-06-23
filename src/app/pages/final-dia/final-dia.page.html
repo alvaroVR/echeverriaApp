@@ -23,28 +23,63 @@
           <h4>HH: {{trabajador.hh}} - Imp:{{trabajador.imp}}</h4>
         </ion-label>
       </ion-item>
-      <app-expandable expandHeight="300px" [expanded]="trabajador.expandable">
-        <ion-item *ngFor="let actividad of trabajador.actividades" class="bgCard">
-          <ion-label>
-            <h4>Actividad: {{actividad.nombre}}</h4>
-            <p *ngIf="!actividad.editable">HH: {{actividad.hh}}</p>
-            <ion-item *ngIf="actividad.editable">
-              <ion-label position="fixed">HH</ion-label>
-              <ion-input style="text-align: right" [min]="0" type="number"
-                         [(ngModel)]="actividad.hh"></ion-input>
-            </ion-item>
-          </ion-label>
-          <ion-avatar class="image-center" slot="end">
-            <ion-button shape="round" color="danger" (click)="editar(actividad)" *ngIf="!actividad.editable">
-              <ion-icon name="lock-closed-outline"></ion-icon>
-            </ion-button>
-            <ion-button shape="round" color="success" (click)="terminarEdicion(actividad)" *ngIf="actividad.editable">
-              <ion-icon name="lock-open-outline"></ion-icon>
-            </ion-button>
-          </ion-avatar>
-        </ion-item>
+      <app-expandable expandHeight="300px" [expanded]="trabajador.expandable" class="bgCard">
+        <ion-card-content *ngFor="let actividad of trabajador.actividades" class="bgCard" style="padding-top: 1px;padding-bottom: 1px">
+          <ion-item>
+            <ion-text>
+              <h2 style="font-weight: bold">Actividad: {{actividad.nombre}}</h2>
+              <p style="font-size: 15px;color: darkgray;" *ngIf="!actividad.editable">
+                HH: {{actividad.hh}}</p>
+              <p style="font-size: 15px;color: darkgray;" *ngIf="!actividad.editable">HH
+                Extras: {{actividad.hhextras}}</p>
+            </ion-text>
+            <ion-avatar class="image-center" slot="end">
+              <ion-button shape="round" color="danger" (click)="editar(actividad)" *ngIf="!actividad.editable">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+              </ion-button>
+              <ion-button shape="round" color="success" (click)="terminarEdicion(actividad)" *ngIf="actividad.editable">
+                <ion-icon name="lock-open-outline"></ion-icon>
+              </ion-button>
+            </ion-avatar>
+          </ion-item>
+          <ion-grid style="padding: 0px 0px 0px 0px;">
+            <ion-row>
+              <ion-col>
+                <ion-item *ngIf="actividad.editable">
+                  <ion-label>HH</ion-label>
+                  <ion-input [min]="0" type="number"
+                             inputmode="numeric"
+                             clear-input
+                             [(ngModel)]="actividad.hh"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item *ngIf="actividad.editable">
+                  <ion-label>HH Extras</ion-label>
+                  <ion-input [min]="0" type="number"
+                             inputmode="numeric"
+                             clear-input
+                             [(ngModel)]="actividad.hhextras"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
       </app-expandable>
     </ion-card>
   </div>
 
+  <div *ngIf="trabajadores.length == 0">
+    <ion-card color="secondary" mode="ios">
+      <ion-card-header class="ion-text-center">
+        <ion-card-title>
+          <ion-icon size="large" name="information-circle-outline"></ion-icon>
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="ion-text-center">
+        No se registran actividades
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
