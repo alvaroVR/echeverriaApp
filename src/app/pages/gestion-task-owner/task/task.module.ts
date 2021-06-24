@@ -7,6 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {TaskPageRoutingModule} from './task-routing.module';
 
 import {TaskPage} from './task.page';
+import {ComponentsModule} from "../../../components/components.module";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {TaskPage} from './task.page';
     FormsModule,
     IonicModule,
     TaskPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ],
   exports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

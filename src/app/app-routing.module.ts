@@ -18,18 +18,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
   },
   {
-    path: 'gestion-task-owner',
+    path: 'listActivity',
     loadChildren: () => import('./pages/gestion-task-owner/gestion-task-owner.module').then(m => m.GestionTaskOwnerPageModule),
     canLoad: [UsuarioGuard]
   },
   {
-    path: 'principio-dia',
+    path: 'startDay',
     data: {title: 'Principio Día'},
     loadChildren: () => import('./pages/principio-dia/principio-dia.module').then(m => m.PrincipioDiaPageModule),
     canLoad: [UsuarioGuard]
   },
   {
-    path: 'final-dia',
+    path: 'finishDay',
     loadChildren: () => import('./pages/final-dia/final-dia.module').then( m => m.FinalDiaPageModule),
     canLoad: [UsuarioGuard]
   },

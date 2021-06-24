@@ -4,14 +4,19 @@ import {ModalListaComponent} from "./modal-lista/modal-lista.component";
 import {ModalComponent} from "./modal/modal.component";
 import {HeaderComponent} from "./header/header.component";
 import {ExpandableComponent} from "./expandable/expandable.component";
+import {IonicModule} from "@ionic/angular";
+import {FormsModule} from "@angular/forms";
+import {MenuComponent} from "./menu/menu.component";
 
 
 @NgModule({
-  declarations: [ModalListaComponent, ModalComponent, HeaderComponent, ExpandableComponent],
+  declarations: [ModalListaComponent, ModalComponent, HeaderComponent, ExpandableComponent, MenuComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    IonicModule,
+    FormsModule
   ],
-  exports: [ModalListaComponent, ModalComponent, HeaderComponent, ExpandableComponent],
+  exports: [ModalListaComponent, ModalComponent, HeaderComponent, ExpandableComponent, MenuComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ComponentsModule {

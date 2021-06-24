@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {UsuarioService} from "./services/usuario.service";
-import {NavController} from "@ionic/angular";
+import {MenuController, NavController} from "@ionic/angular";
 import {UiserviceService} from "./services/uiservice.service";
+import {MenuService} from "./services/menu.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,11 @@ import {UiserviceService} from "./services/uiservice.service";
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private user: UsuarioService, public navCtrl: NavController, public alertMsg: UiserviceService) {
+  optionsMenu: any = null;
+
+  constructor(private user: UsuarioService, public navCtrl: NavController, public alertMsg: UiserviceService, private menuService: MenuService) {
+    this.optionsMenu = this.menuService.details
+
   }
 
   cerrarSesion() {
@@ -18,6 +23,9 @@ export class AppComponent {
         this.user.logout()
       }
     })
+  }
+
+  openFirst() {
 
   }
 

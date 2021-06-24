@@ -4,6 +4,7 @@ import {AlertController, NavController} from "@ionic/angular";
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {AuthService} from "../../services/auth.service";
 import {UiserviceService} from "../../services/uiservice.service";
+import {MenuService} from "../../services/menu.service";
 
 @Component({
   selector: 'app-gestion-task-owner',
@@ -15,9 +16,10 @@ export class GestionTaskOwnerPage implements OnInit {
   items: any = [];
   detActividad;
   actividadesGl;
+  menues;
 
   constructor(public gestionService: GestionTaskOwnerService, private router: Router, private navCtrl: NavController,
-              public alertController: AlertController,
+              public alertController: AlertController, private menuService: MenuService,
               public activatedRoute: ActivatedRoute, public authService: AuthService, public uiService: UiserviceService) {
     this.items = [
       {expanded: false},
@@ -34,6 +36,7 @@ export class GestionTaskOwnerPage implements OnInit {
   }
 
   ngOnInit() {
+    this.getappspathaccesmenu()
   }
 
   ionViewWillEnter() {
@@ -161,7 +164,7 @@ export class GestionTaskOwnerPage implements OnInit {
     }
     this.asd().then(() => {
       this.actividades.filter(act => act.idtask === detalle.idtask ? act.selected = true : act.selected = false)
-      this.router.navigate(['/gestion-task-owner/task'], navigationExtras);
+      this.router.navigate(['/listActivity/task'], navigationExtras);
     })
   }
 
@@ -220,6 +223,18 @@ export class GestionTaskOwnerPage implements OnInit {
 
   async presentAlertConfirm() {
 
+  }
+
+  getappspathaccesmenu() {
+    const request = {
+      userId: this.authService.user,
+      companyId: this.authService.company,
+    }
+
+    this.menuService.getappspathaccesmenu(request).subscribe(r => {
+      this.menues = r.detalles
+      this.menuService.details.next(this.menues);
+    })
   }
 
 }

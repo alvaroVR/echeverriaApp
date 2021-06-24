@@ -1,7 +1,7 @@
 <ion-app>
   <ion-split-pane contentId="main">
     <!--  the side menu  -->
-    <ion-menu contentId="main">
+    <ion-menu contentId="main" menuId="first">
       <ion-header>
         <ion-toolbar>
           <ion-title>NEXXO</ion-title>
@@ -9,15 +9,9 @@
       </ion-header>
       <ion-content>
         <ion-list>
-          <ion-menu-toggle auto-hide="true">
-            <ion-item button (click)="changePage('/gestion-task-owner')">
-              Lista de Actividad
-            </ion-item>
-            <ion-item button (click)="changePage('/principio-dia')">
-              Principio de Día
-            </ion-item>
-            <ion-item button (click)="changePage('/final-dia')">
-              Final de Día
+          <ion-menu-toggle auto-hide="true" *ngFor="let option of (optionsMenu | async)">
+            <ion-item button *ngIf="option.activo === 'S'" (click)="changePage(option.path)">
+              {{option.idpadre}}
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
@@ -34,3 +28,5 @@
   </ion-split-pane>
 
 </ion-app>
+
+

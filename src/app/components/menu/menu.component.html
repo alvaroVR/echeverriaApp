@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>NEXXO</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-menu-toggle auto-hide="true">
+      <ion-item button (click)="changePage('/listActivity')">
+        Lista de Actividad
+      </ion-item>
+      <ion-item button (click)="changePage('/startDay')">
+        Principio de Día
+      </ion-item>
+      <ion-item button (click)="changePage('/finishDate')">
+        Final de Día
+      </ion-item>
+    </ion-menu-toggle>
+  </ion-list>
+</ion-content>
+<ion-button class="btn" [color]="'danger'" [expand]="'block'"
+            (click)="cerrarSesion()">Cerrar Sesión
+  <ion-icon name="power-outline"></ion-icon>
+</ion-button>

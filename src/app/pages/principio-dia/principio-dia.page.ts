@@ -57,11 +57,11 @@ export class PrincipioDiaPage implements OnInit {
   }
 
   navToDetail(detalle) {
-    this.navCtrl.navigateForward(['principio-dia/detalle-pd', detalle]);
+    this.navCtrl.navigateForward(['startDay/detalle-pd', detalle]);
   }
 
   addActivity() {
-    this.navCtrl.navigateForward(['principio-dia/crear-actividad']);
+    this.navCtrl.navigateForward(['startDay/crear-actividad']);
   }
 
   onRenderItems(event) {

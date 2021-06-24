@@ -18,6 +18,7 @@ import {FormsModule} from "@angular/forms";
 import {ModalComponent} from "./components/modal/modal.component";
 import {ExpandableComponent} from "./components/expandable/expandable.component";
 import {ComponentsModule} from "./components/components.module";
+import {MenuComponent} from "./components/menu/menu.component";
 
 @NgModule({
   declarations: [AppComponent],

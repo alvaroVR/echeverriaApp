@@ -21,7 +21,7 @@ export class AuthService {
     await this.storage.set('token', token);
     await this.storage.set('user', usuario);
     await this.storage.set('company', company);
-    this.navCtrl.navigateRoot(['gestion-task-owner'])
+    this.navCtrl.navigateRoot(['listActivity'])
   }
 
   async cargarToken() {

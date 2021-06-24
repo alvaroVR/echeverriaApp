@@ -12,9 +12,7 @@ p {
   font-family: Lato;
 }
 
-ion-menu {
-  .menu-inner {
-    display: none !important;
-  }
-}
 
+.menu-inner {
+  display: inline-block !important;
+}

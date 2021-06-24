@@ -1,4 +1,4 @@
-<app-header title="Final de Día" href="/gestion-task-owner"></app-header>
+<app-header title="Final de Día" href="/listActivity"></app-header>
 <ion-content scroll-y class="test">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
@@ -46,7 +46,7 @@
             <ion-row>
               <ion-col>
                 <ion-item *ngIf="actividad.editable">
-                  <ion-label>HH</ion-label>
+                  <ion-label  position="floating">HH</ion-label>
                   <ion-input [min]="0" type="number"
                              inputmode="numeric"
                              clear-input
@@ -55,7 +55,7 @@
               </ion-col>
               <ion-col>
                 <ion-item *ngIf="actividad.editable">
-                  <ion-label>HH Extras</ion-label>
+                  <ion-label  position="floating">HH Extras</ion-label>
                   <ion-input [min]="0" type="number"
                              inputmode="numeric"
                              clear-input
