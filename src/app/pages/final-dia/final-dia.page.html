@@ -8,12 +8,12 @@
     </ion-refresher-content>
   </ion-refresher>
   <div *ngIf="trabajadores.length > 0">
-    <ion-list-header mode="md">
+    <ion-list-header>
       Actividades
     </ion-list-header>
     <ion-card *ngFor="let trabajador of trabajadores">
       <ion-item (click)="expandItem(trabajador)"
-                [class]="{'success': trabajador.imp > 2, 'danger': trabajador.imp < 0}">
+                [class]="{'success': trabajador.imp >= 0, 'danger': trabajador.imp < 0}">
         <ion-icon name="chevron-up-outline" *ngIf="trabajador.expandable" size="small" slot="end"
                   [ngClass]="trabajador.expandable ? 'show' : 'hide'"></ion-icon>
         <ion-icon name="chevron-down-outline" *ngIf="!trabajador.expandable" size="small" slot="end"
@@ -34,7 +34,7 @@
                 Extras: {{actividad.hhextras}}</p>
             </ion-text>
             <ion-avatar class="image-center" slot="end">
-              <ion-button shape="round" color="danger" (click)="editar(actividad)" *ngIf="!actividad.editable">
+              <ion-button shape="round" color="danger" (click)="editar(actividad, trabajador)" *ngIf="!actividad.editable">
                 <ion-icon name="lock-closed-outline"></ion-icon>
               </ion-button>
               <ion-button shape="round" color="success" (click)="terminarEdicion(actividad)" *ngIf="actividad.editable">
@@ -69,17 +69,69 @@
     </ion-card>
   </div>
 
-  <div *ngIf="trabajadores.length == 0">
+  <div *ngIf="trabajadores.length == 0 && this.showValues">
     <ion-card color="secondary" mode="ios">
       <ion-card-header class="ion-text-center">
         <ion-card-title>
           <ion-icon size="large" name="information-circle-outline"></ion-icon>
         </ion-card-title>
       </ion-card-header>
-
       <ion-card-content class="ion-text-center">
         No se registran actividades
       </ion-card-content>
     </ion-card>
   </div>
+
+  <div *ngIf="trabajadores.length == 0 && !this.showValues">
+    <ion-list>
+      <ion-list-header>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+        </ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 88%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
 </ion-content>

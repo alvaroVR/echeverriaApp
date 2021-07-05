@@ -43,10 +43,12 @@ export class CrearActividadPage implements OnInit {
 
   constructor(private modalController: ModalController, private authService: AuthService, private principioService: PrincipioDiaService,
               public alertMsg: UiserviceService, public navCtrl: NavController) {
+
   }
 
   ngOnInit() {
     this.getdomcompanies()
+    this.getdomtasksubpartidasresponsables();
   }
 
   async selectEmpresa() {
@@ -116,9 +118,8 @@ export class CrearActividadPage implements OnInit {
         this.formulario.proyecto.id = data.data.respuesta.id;
         this.formulario.proyecto.checked = data.data.respuesta.checked;
         this.projectList.filter(proyecto => proyecto.id === this.formulario.proyecto.id && this.formulario.proyecto.checked === true ? proyecto.checked = true : proyecto.checked = false);
-        this.getdetactivitypplan();
-        this.getdetlistot();
-        this.getdomtasksubpartidasresponsables();
+        //this.getdetactivitypplan();
+        //this.getdetlistot();
       }
     });
     return await modal.present();
@@ -203,6 +204,13 @@ export class CrearActividadPage implements OnInit {
 
     this.principioService.getdomcompanies(this.getdomcompaniesRequest).subscribe((response) => {
       this.warehouseList = response.detalles;
+      const empresa = this.warehouseList.filter(wh => wh.id === response.label)
+      this.formulario.empresa = {
+        id: empresa[0].id,
+        nombre: empresa[0].nombre,
+        checked: true
+      }
+      this.getdomclientes()
     });
   }
 
@@ -214,6 +222,13 @@ export class CrearActividadPage implements OnInit {
     };
     this.principioService.getdomclientes(getdomclientesRequest).subscribe((response) => {
       this.businessList = response.detalles;
+      const cliente = this.businessList.filter(cl => cl.id === response.label)
+      this.formulario.cliente = {
+        id: cliente[0].id,
+        nombre: cliente[0].nombre,
+        checked: true
+      }
+      this.getdomproyectos()
     });
   }
 
@@ -227,6 +242,12 @@ export class CrearActividadPage implements OnInit {
 
     this.principioService.getdomproyectos(getdomproyectosRequest).subscribe((response) => {
       this.projectList = response.detalles;
+      const proyecto = this.projectList.filter(pj => pj.id === response.label)
+      this.formulario.proyecto = {
+        id: proyecto[0].id,
+        nombre: proyecto[0].nombre,
+        checked: true
+      }
     });
   }
 
@@ -331,8 +352,8 @@ export class CrearActividadPage implements OnInit {
       companySelectId: this.formulario.empresa.id,
       clientId: this.formulario.cliente.id,
       projectId: this.formulario.proyecto.id,
-      regOTId: this.formulario.ot.id,
-      regSubpartidaId: this.formulario.partida.id,
+      //regOTId: this.formulario.ot.id,
+      //regSubpartidaId: this.formulario.partida.id,
       taskId: this.idActividadModel,
       taskName: this.actividadModel,
       uom: this.uomModel,
@@ -349,7 +370,7 @@ export class CrearActividadPage implements OnInit {
             return
           }
           this.alertMsg.presentToast('Actividad publicada', 'success')
-          this.navCtrl.navigateBack('/principio-dia')
+          this.navCtrl.navigateBack('/startDay')
         })
       }
     })

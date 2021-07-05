@@ -28,13 +28,12 @@ export class PrincipioDiaService {
       const respuesta = {
         code: response.code,
         error: response.error,
-        detalles: response.detalles.map(ot => {
-          return {
+        label: response.label,
+        detalles: response.detalles.map(ot => ({
             id: ot.id,
             nombre: ot.nombre,
             checked: false
-          }
-        })
+          }))
       }
       subject.next(respuesta);
     }, error => {
@@ -49,13 +48,12 @@ export class PrincipioDiaService {
       const respuesta = {
         code: response.code,
         error: response.error,
-        detalles: response.detalles.map(ot => {
-          return {
+        label: response.label,
+        detalles: response.detalles.map(ot => ({
             id: ot.id,
             nombre: ot.nombre,
             checked: false
-          }
-        })
+          }))
       }
       subject.next(respuesta);
     }, error => {
@@ -70,13 +68,12 @@ export class PrincipioDiaService {
       const respuesta = {
         code: response.code,
         error: response.error,
-        detalles: response.detalles.map(ot => {
-          return {
+        label: response.label,
+        detalles: response.detalles.map(ot => ({
             id: ot.id,
             nombre: ot.nombre,
             checked: false
-          }
-        })
+          }))
       }
       subject.next(respuesta);
     }, error => {
@@ -91,13 +88,12 @@ export class PrincipioDiaService {
       const respuesta = {
         code: response.code,
         error: response.error,
-        detalles: response.detalles.map(ot => {
-          return {
+        label: response.label,
+        detalles: response.detalles.map(ot => ({
             id: ot.idproyecto,
             nombre: ot.project_name,
             checked: false
-          }
-        })
+          }))
       }
       subject.next(respuesta);
     }, error => {
@@ -112,13 +108,12 @@ export class PrincipioDiaService {
       const respuesta = {
         code: response.code,
         error: response.error,
-        detalles: response.detalles.map(ot => {
-          return {
+        label: response.label,
+        detalles: response.detalles.map(ot => ({
             id: ot.idreg,
             nombre: ot.jobname ? ot.jobname : '',
             checked: false
-          }
-        })
+          }))
       }
       subject.next(respuesta);
     }, error => {
@@ -134,13 +129,12 @@ export class PrincipioDiaService {
       const respuesta = {
         code: response.code,
         error: response.error,
-        detalles: response.detalles.map(ot => {
-          return {
+        label: response.label,
+        detalles: response.detalles.map(ot => ({
             id: ot.idreg,
             nombre: ot.nombre ? ot.nombre : '',
             checked: false
-          }
-        })
+          }))
       }
       subject.next(respuesta);
     }, error => {
@@ -155,13 +149,12 @@ export class PrincipioDiaService {
       const respuesta = {
         code: response.code,
         error: response.error,
-        detalles: response.detalles.map(resp => {
-          return {
+        label: response.label,
+        detalles: response.detalles.map(resp => ({
             id: resp.dni,
             nombre: resp.nombre ? resp.nombre : '',
             checked: false
-          }
-        })
+          }))
       }
       subject.next(respuesta);
     }, error => {
@@ -176,13 +169,12 @@ export class PrincipioDiaService {
       const respuesta = {
         code: response.code,
         error: response.error,
-        detalles: response.detalles.map(resp => {
-          return {
+        label: response.label,
+        detalles: response.detalles.map(resp => ({
             id: resp.dni,
             nombre: resp.nombre ? resp.nombre : '',
             checked: false
-          }
-        })
+          }))
       }
       subject.next(respuesta);
     }, error => {
@@ -197,13 +189,12 @@ export class PrincipioDiaService {
       const respuesta = {
         code: response.code,
         error: response.error,
-        detalles: response.detalles.map(resp => {
-          return {
+        label: response.label,
+        detalles: response.detalles.map(resp => ({
             id: resp.dni,
             nombre: resp.nombre ? resp.nombre : '',
             checked: false
-          }
-        })
+          }))
       }
       subject.next(respuesta);
     }, error => {

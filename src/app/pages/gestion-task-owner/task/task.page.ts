@@ -26,6 +26,8 @@ export class TaskPage implements OnInit {
   dotacion = []
   dotacionList
   taskForm: FormGroup;
+  customPickerOptionI
+  customPickerOptionF
 
   constructor(public router: Router, public navCtrl: NavController, public activatedRoute: ActivatedRoute,
               private modalController: ModalController, public gestionService: GestionTaskOwnerService,
@@ -35,6 +37,25 @@ export class TaskPage implements OnInit {
       this.dateIni = this.actividad.inicio
     })
 
+    this.customPickerOptionI = {
+      buttons: [{
+        text: 'Limpiar',
+        handler: () => this.taskForm.controls['dateIniCtrl'].setValue(null)
+      }, {
+        text: 'Guardar',
+        handler: () => console.log('Clicked Save!')
+      }]
+    }
+
+    this.customPickerOptionF = {
+      buttons: [{
+        text: 'Limpiar',
+        handler: () => this.taskForm.controls['dateFinCtrl'].setValue(null)
+      }, {
+        text: 'Guardar',
+        handler: () => console.log('Clicked Save!')
+      }]
+    }
 
   }
 
@@ -94,11 +115,27 @@ export class TaskPage implements OnInit {
             queryParams: this.actividad
           }
           this.alertMsg.presentToast('Actividad enviada', 'success')
-          this.navCtrl.navigateBack('/gestion-task-owner', navigation)
+          this.navCtrl.navigateBack('/listActivity', navigation)
         })
       }
     })
 
+  }
+
+  changeI() {
+    const datesI = moment().format('DD/MM/YYYY 08:00')
+    if (this.dateIni) {
+      return
+    }
+    this.dateIni = datesI
+  }
+
+  changeF() {
+    const datesF = moment().format('DD/MM/YYYY 18:00')
+    if (this.dateFin) {
+      return
+    }
+    this.dateFin = datesF
   }
 
   async selectDotacion() {
