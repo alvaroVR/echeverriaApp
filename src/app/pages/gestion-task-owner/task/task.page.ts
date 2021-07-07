@@ -43,7 +43,9 @@ export class TaskPage implements OnInit {
         handler: () => this.taskForm.controls['dateIniCtrl'].setValue(null)
       }, {
         text: 'Guardar',
-        handler: () => console.log('Clicked Save!')
+        handler: (val) => {
+          this.dateIni = `${val.year.text}-${val.month.text}-${val.day.text} ${val.hour.text}:${val.minute.text}:00`
+        }
       }]
     }
 
@@ -53,7 +55,9 @@ export class TaskPage implements OnInit {
         handler: () => this.taskForm.controls['dateFinCtrl'].setValue(null)
       }, {
         text: 'Guardar',
-        handler: () => console.log('Clicked Save!')
+        handler: (val) => {
+          this.dateFin = `${val.year.text}-${val.month.text}-${val.day.text} ${val.hour.text}:${val.minute.text}:00`
+        }
       }]
     }
 
