@@ -20,7 +20,7 @@
                   [ngClass]="trabajador.expandable ? 'show' : 'hide'"></ion-icon>
         <ion-label>
           <h4 class="text">{{trabajador.worker_name}}</h4>
-          <h4>HH: {{trabajador.hh}} - Imp:{{trabajador.imp}}</h4>
+          <h4>HH: {{trabajador.hh}} - Imp:{{trabajador.imp}}- HHE:{{trabajador.hhextras}}</h4>
         </ion-label>
       </ion-item>
       <app-expandable expandHeight="300px" [expanded]="trabajador.expandable" class="bgCard">
