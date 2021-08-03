@@ -21,6 +21,17 @@ export class FinalDiaService {
     return subject;
   }
 
+  //getinfoactivityfindiacapataz?userId=cbernabe&companyIdUsr=90844000-5
+  getinfoactivityfindiacapataz(query) {
+    const subject = new Subject<any>();
+    this.api.get(`/marketplace/getinfoactivityfindiacapataz`, query).subscribe((response: any) => {
+      subject.next(response);
+    }, error => {
+      subject.error(error);
+    });
+    return subject;
+  }
+
   //putfindiacapatazdothh?userId=cbernabe&companyId=01&clientId=01&projectId=4600018331&regOTId=1&regSubpartidaId=1&regTaskId=3&fechaEjec=22-06-2021&dni=19160728-7&hh=6
   putfindiacapatazdothh(request) {
     const subject = new Subject<any>();

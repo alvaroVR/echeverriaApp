@@ -3,14 +3,20 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="chevron-down-circle-outline"
-      pullingText="Pull to refresh"
+      pullingText="Siga para recargar"
       refreshingText="Actualizando...">
     </ion-refresher-content>
   </ion-refresher>
-  <div *ngIf="trabajadores.length > 0">
-    <ion-list-header>
+  <ion-segment value="Colaborador" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="Colaborador">
+      Colaborador
+    </ion-segment-button>
+    <ion-segment-button value="Actividades">
       Actividades
-    </ion-list-header>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="trabajadores.length > 0 && sgmento.colaborador">
     <ion-card *ngFor="let trabajador of trabajadores">
       <ion-item (click)="expandItem(trabajador)"
                 [class]="{'success': trabajador.imp >= 0, 'danger': trabajador.imp < 0}">
@@ -20,11 +26,12 @@
                   [ngClass]="trabajador.expandable ? 'show' : 'hide'"></ion-icon>
         <ion-label>
           <h4 class="text">{{trabajador.worker_name}}</h4>
-          <h4>HH: {{trabajador.hh}} - Imp:{{trabajador.imp}}- HHE:{{trabajador.hhextras}}</h4>
+          <h4>HH: {{trabajador.hh}} - Imp:{{trabajador.imp}} - HHE:{{trabajador.hhextras}}</h4>
         </ion-label>
       </ion-item>
       <app-expandable expandHeight="300px" [expanded]="trabajador.expandable" class="bgCard">
-        <ion-card-content *ngFor="let actividad of trabajador.actividades" class="bgCard" style="padding-top: 1px;padding-bottom: 1px">
+        <ion-card-content *ngFor="let actividad of trabajador.actividades" class="bgCard"
+                          style="padding-top: 1px;padding-bottom: 1px">
           <ion-item>
             <ion-text>
               <h2 style="font-weight: bold">Actividad: {{actividad.nombre}}</h2>
@@ -34,7 +41,8 @@
                 Extras: {{actividad.hhextras}}</p>
             </ion-text>
             <ion-avatar class="image-center" slot="end">
-              <ion-button shape="round" color="danger" (click)="editar(actividad, trabajador)" *ngIf="!actividad.editable">
+              <ion-button shape="round" color="danger" (click)="editar(actividad, trabajador)"
+                          *ngIf="!actividad.editable">
                 <ion-icon name="lock-closed-outline"></ion-icon>
               </ion-button>
               <ion-button shape="round" color="success" (click)="terminarEdicion(actividad)" *ngIf="actividad.editable">
@@ -46,7 +54,7 @@
             <ion-row>
               <ion-col>
                 <ion-item *ngIf="actividad.editable">
-                  <ion-label  position="floating">HH</ion-label>
+                  <ion-label position="floating">HH</ion-label>
                   <ion-input [min]="0" type="number"
                              inputmode="numeric"
                              clear-input
@@ -55,7 +63,7 @@
               </ion-col>
               <ion-col>
                 <ion-item *ngIf="actividad.editable">
-                  <ion-label  position="floating">HH Extras</ion-label>
+                  <ion-label position="floating">HH Extras</ion-label>
                   <ion-input [min]="0" type="number"
                              inputmode="numeric"
                              clear-input
@@ -69,7 +77,18 @@
     </ion-card>
   </div>
 
-  <div *ngIf="trabajadores.length == 0 && this.showValues">
+  <div *ngIf="trabajadores.length > 0 && sgmento.actividades">
+    <ion-card *ngFor="let actividad of actividades">
+      <ion-item [class]="{'success': actividad.imp >= 0, 'danger': actividad.imp < 0}">
+        <ion-label>
+          <h4 class="text">{{actividad.idtask}} - {{actividad.nombre}}</h4>
+          <h4>HH: {{actividad.hh}} - Imp:{{actividad.imp}} - HHE:{{actividad.hhextras}}</h4>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <div *ngIf="trabajadores.length == 0 && this.showValues && sgmento.actividades">
     <ion-card color="secondary" mode="ios">
       <ion-card-header class="ion-text-center">
         <ion-card-title>

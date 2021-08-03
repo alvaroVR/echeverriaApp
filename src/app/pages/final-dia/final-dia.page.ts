@@ -11,16 +11,22 @@ import {UiserviceService} from "../../services/uiservice.service";
 })
 export class FinalDiaPage implements OnInit {
   trabajadores = [];
+  actividades = [];
   editEnabled = false
   value;
   oldValues;
   showValues = false
+  sgmento = {
+    colaborador: true,
+    actividades: false
+  }
 
   constructor(private finalDiaService: FinalDiaService, private authService: AuthService, private uiservice: UiserviceService) {
   }
 
   ngOnInit() {
     this.getinfofindiacapataz()
+    this.getinfoactivityfindiacapataz()
   }
 
   getinfofindiacapataz(worker?) {
@@ -39,6 +45,19 @@ export class FinalDiaPage implements OnInit {
         })
       }
       this.showValues = true
+    })
+  }
+
+  getinfoactivityfindiacapataz(worker?) {
+    const request = {
+      userId: this.authService.user,
+      companyIdUsr: this.authService.company
+    }
+    this.finalDiaService.getinfoactivityfindiacapataz(request).subscribe(response => {
+      this.actividades = response.detalles.map(actividad => ({
+        ...actividad,
+        expandable: false
+      }));
     })
   }
 
@@ -160,6 +179,11 @@ export class FinalDiaPage implements OnInit {
 
     })
 
+  }
+
+  segmentChanged(ev) {
+    this.sgmento.actividades = ev.detail.value === 'Actividades'
+    this.sgmento.colaborador = ev.detail.value === 'Colaborador'
   }
 
 }
