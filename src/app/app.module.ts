@@ -13,17 +13,16 @@ import {SplashScreen} from "@ionic-native/splash-screen/ngx";
 import {Geolocation} from "@ionic-native/geolocation/ngx";
 import {Camera} from "@ionic-native/camera/ngx";
 import {FileTransfer} from "@ionic-native/file-transfer/ngx";
-import {ModalListaComponent} from "./components/modal-lista/modal-lista.component";
 import {FormsModule} from "@angular/forms";
-import {ModalComponent} from "./components/modal/modal.component";
-import {ExpandableComponent} from "./components/expandable/expandable.component";
 import {ComponentsModule} from "./components/components.module";
-import {MenuComponent} from "./components/menu/menu.component";
 
+// @ts-ignore
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [ComponentsModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, IonicStorageModule.forRoot(),
+  imports: [ComponentsModule, BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule, HttpClientModule, IonicStorageModule.forRoot(),
     FormsModule],
   providers: [
     StatusBar,

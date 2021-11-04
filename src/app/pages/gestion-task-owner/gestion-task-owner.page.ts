@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {GestionTaskOwnerService} from "../../services/gestion-task-owner.service";
-import {AlertController, NavController} from "@ionic/angular";
+import {AlertController, IonDatetime, NavController} from "@ionic/angular";
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {AuthService} from "../../services/auth.service";
 import {UiserviceService} from "../../services/uiservice.service";
 import {MenuService} from "../../services/menu.service";
+import * as moment from 'moment';
+import {NavigationOptions} from "@ionic/angular/providers/nav-controller";
 
 @Component({
   selector: 'app-gestion-task-owner',
@@ -17,6 +19,14 @@ export class GestionTaskOwnerPage implements OnInit {
   detActividad;
   actividadesGl;
   menues;
+  datePicker;
+  @ViewChild('picker2') picker2: IonDatetime;
+  @ViewChild('picker') picker: IonDatetime;
+  today = new Date().toISOString();
+  minDate = new Date((new Date().getFullYear()), new Date().getMonth() - 1, new Date().getDate()).toISOString();
+  formattedToday = moment(this.today).format('DD/MM/YYYY')
+  countDate = 0
+  data = 0
 
   constructor(public gestionService: GestionTaskOwnerService, private router: Router, private navCtrl: NavController,
               public alertController: AlertController, private menuService: MenuService,
@@ -236,5 +246,81 @@ export class GestionTaskOwnerPage implements OnInit {
       this.menuService.details.next(this.menues);
     })
   }
+
+  iniciarActividad(actividad, fecha) {
+
+  }
+
+  prueba2(value, actividad, fecha, cant, inicio, status) {
+    if (actividad.cantInitiate > 0 && status !== 'INITIATE') {
+      let header = `Advertencia`
+      let mensaje = `<div>Para iniciar debe finalizar las tareas con estado INITIATE </div>`
+      let cssClass = 'warning'
+      return this.uiService.alertInformativa(mensaje, header, cssClass)
+    }
+    const request = {
+      userId: this.authService.user,
+      companyIdUsr: this.authService.company,
+      companyIdSelect: actividad.companyId,
+      clientId: actividad.clientId,
+      projectId: actividad.idproyecto,
+      regIdOT: actividad.regIdOt,
+      regIdSubpartida: actividad.regIdSubpartida,
+      regIdTask: actividad.regIdTask,
+      startDate: moment(value.detail).format('DD/MM/YYYY HH:mm'),
+      finishDate: null,
+      flagExcep: null,
+      obsExcep: null,
+      fechaEjec: fecha,
+      qtyEjec: null,
+      hhPausa: null,
+      regsData: null
+    }
+
+    this.gestionService.putinfoownertasksubpartidaot(request).subscribe((response) => {
+      if (response.code != 0) {
+        this.uiService.alertInformativa(response.error);
+        return
+      }
+      this.uiService.presentToast('Actividad enviada', 'success').then(() => {
+        this.prueba();
+      })
+    })
+  }
+
+  reject(actividad, fecha, cant, inicio, status) {
+    this.uiService.showMessageOkCancel('¿Estás seguro de rechazar actividad?', '', 'Rechazar', 'Cancelar').then(r => {
+      if (r.data) {
+        const request = {
+          userId: this.authService.user,
+          companyIdUsr: this.authService.company,
+          companyIdSelect: actividad.companyId,
+          clientId: actividad.clientId,
+          projectId: actividad.idproyecto,
+          regIdOT: actividad.regIdOt,
+          regIdSubpartida: actividad.regIdSubpartida,
+          regIdTask: actividad.regIdTask,
+          startDate: null,
+          finishDate: null,
+          flagExcep: 2,
+          obsExcep: null,
+          fechaEjec: fecha,
+          qtyEjec: null,
+          hhPausa: null,
+          regsData: null
+        }
+        this.gestionService.putinfoownertasksubpartidaot(request).subscribe((response) => {
+          if (response.code != 0) {
+            this.uiService.alertInformativa(response.error);
+            return
+          }
+          this.uiService.presentToast('Actividad rechazada', 'success').then(() => {
+            this.prueba();
+          })
+        })
+      }
+    })
+  }
+
 
 }

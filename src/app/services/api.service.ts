@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {forkJoin, Observable} from "rxjs";
+import {forkJoin, Observable} from 'rxjs';
 import {environment as ENV} from '../../environments/environment';
-import {UsuarioService} from "./usuario.service";
-import {AuthService} from "./auth.service";
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +20,11 @@ export class ApiService {
 
   public get(url: string, body?: any) {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.token}`
+      authorization: `Bearer ${this.authService.token}`
     });
 
     const header = {
-      'Authorization': 'Bearer ' + this.authService.token
+      authorization: 'Bearer ' + this.authService.token
     };
 
     return this.http.get(this.environmentUrl + url, {params: body, headers: header});
@@ -33,7 +32,7 @@ export class ApiService {
 
   public post(url: string, body?: any, query?: any) {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authService.token}`
+      authorization: `Bearer ${this.authService.token}`
     });
     return this.http.post<any>(this.environmentUrl + url, body, {
       params: query,
@@ -47,7 +46,7 @@ export class ApiService {
     const array = [];
 
     const headers = new HttpHeaders({
-      Authorization: token
+      authorization: token
     });
     array.push(this.http.post<any>(this.environmentUrl + url, body, {
       headers
@@ -61,7 +60,7 @@ export class ApiService {
     const array = [];
 
     const headers = new HttpHeaders({
-      Authorization: token
+      authorization: token
     });
 
     array.push(this.http.get<any>(this.environmentUrl + url, {

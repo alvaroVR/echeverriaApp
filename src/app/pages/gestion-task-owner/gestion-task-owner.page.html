@@ -13,29 +13,59 @@
     </ion-list-header>
 
     <ion-card *ngFor="let actividad of actividades">
-        <ion-item (click)="expandItem(actividad)" >
-          <ion-label>
-            <h3>Partida: {{actividad.subpartidaname}}</h3>
-            <h3>Actividad: {{actividad.taskname}} - {{actividad.idActivity}} </h3>
-            <h3>Cantidad: {{actividad.qty_tot_ejec}} / {{actividad.qty_ejecutar}} - HH: {{actividad.hh_PTO}} -
-              UOM: {{actividad.uom}}</h3>
-            <p>Inicio: {{actividad.start_date}} - Termino: {{actividad.finish_date}}</p>
-            <ion-button (click)="finishAll(actividad)">Finalizar Act.</ion-button>
-          </ion-label>
-        </ion-item>
-      <app-expandable expandHeight="300px" [expanded]="actividad.expanded">
+      <ion-item (click)="expandItem(actividad)">
+        <ion-label>
+          <h3>Partida: {{actividad.subpartidaname}}</h3>
+          <h3>Actividad: {{actividad.taskname}} - {{actividad.idActivity}} </h3>
+          <h3>Cantidad: {{actividad.qty_tot_ejec}} / {{actividad.qty_ejecutar}} - HH: {{actividad.hh_PTO}} -
+            UOM: {{actividad.uom}}</h3>
+          <p>Inicio: {{actividad.start_date}} - Termino: {{actividad.finish_date}}</p>
+          <ion-button (click)="finishAll(actividad)">Finalizar Act.</ion-button>
+        </ion-label>
+      </ion-item>
+      <app-expandable expandHeight="300px" [expanded]="actividad.expanded" class="forecast_container">
         <ion-item *ngFor="let fecha of actividad.tasks">
-          <p>{{fecha.fecha}}</p>
-          <ion-button
-            [color]="fecha.status === 'UNCOMPLETE' ? 'danger' : fecha.status === 'INITIATE' ? 'warning' :'primary'"
-            style="width: 100px;"
-            [fill]="actividad.selected ? 'solid' : 'outline'"
-            [disabled]="fecha.status === 'UNCOMPLETE'"
-            slot="end" (click)="detalleActividad(actividad, fecha.fecha, fecha.cant, fecha.inicio, fecha.status)">
-            {{fecha.status}}
-          </ion-button>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="8">
+                <p>{{fecha.fecha}}</p>
+              </ion-col>
+              <ion-col size="4">
+                <ion-button *ngIf="fecha.status === 'PENDING'"
+                            color="success"
+                            style="width: 100%;"
+                            (click)="picker.open()"
+                            [fill]="'outline'">
+                  Start
+                </ion-button>
+                <ion-button
+                  [color]="fecha.status === 'UNCOMPLETE' ? 'danger' : fecha.status === 'INITIATE' ? 'warning' :'primary'"
+                  style="width: 100%;"
+                  [fill]="actividad.selected ? 'solid' : 'outline'"
+                  [disabled]="fecha.status === 'UNCOMPLETE'"
+                  (click)="detalleActividad(actividad, fecha.fecha, fecha.cant, fecha.inicio, fecha.status)">
+                  {{fecha.status}}
+                </ion-button>
+                <ion-button *ngIf="fecha.status === 'PENDING'"
+                            color="danger"
+                            (click)="reject(actividad, fecha.fecha, fecha.cant, fecha.inicio, fecha.status)"
+                            style="width: 100%;"
+                            [fill]="'outline'"
+                >
+                  Reject
+                </ion-button>
+
+              </ion-col>
+            </ion-row>
+
+          </ion-grid>
+          <ion-datetime #picker displayFormat="DD/MMM/YYYY HH:mm" [max]="today" [min]="minDate"
+                        (ionChange)="prueba2($event, actividad, fecha.fecha, fecha.cant, fecha.inicio, fecha.status)"
+                        monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic"></ion-datetime>
         </ion-item>
+
       </app-expandable>
+
 
     </ion-card>
 
