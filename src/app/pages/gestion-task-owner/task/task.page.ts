@@ -28,6 +28,9 @@ export class TaskPage implements OnInit {
   taskForm: FormGroup;
   customPickerOptionI
   customPickerOptionF
+  today = new Date().toISOString();
+  minDate = new Date((new Date().getFullYear()), new Date().getMonth() - 2, new Date().getDate()).toISOString();
+  formattedToday = moment(this.today).format('DD/MM/YYYY')
 
   constructor(public router: Router, public navCtrl: NavController, public activatedRoute: ActivatedRoute,
               private modalController: ModalController, public gestionService: GestionTaskOwnerService,
@@ -127,7 +130,7 @@ export class TaskPage implements OnInit {
   }
 
   changeI() {
-    const datesI = moment().format('DD/MM/YYYY 08:00')
+    const datesI = moment().format('DD/MMM/YYYY 08:00')
     if (this.dateIni) {
       return
     }
@@ -135,7 +138,9 @@ export class TaskPage implements OnInit {
   }
 
   changeF() {
-    const datesF = moment().format('DD/MM/YYYY 18:00')
+    //var date = new Date((new Date().getFullYear()), new Date().getMonth(), new Date().getDate()).setHours(18)
+    //const datesF = new Date(date).toISOString();
+    const datesF = moment().format('DD/MMM/YYYY 18:00')
     if (this.dateFin) {
       return
     }

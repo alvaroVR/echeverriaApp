@@ -23,7 +23,8 @@ export class GestionTaskOwnerPage implements OnInit {
   @ViewChild('picker2') picker2: IonDatetime;
   @ViewChild('picker') picker: IonDatetime;
   today = new Date().toISOString();
-  minDate = new Date((new Date().getFullYear()), new Date().getMonth() - 1, new Date().getDate()).toISOString();
+  minDate = new Date((new Date().getFullYear()), new Date().getMonth() - 2, new Date().getDate()).toISOString();
+
   formattedToday = moment(this.today).format('DD/MM/YYYY')
   countDate = 0
   data = 0
@@ -267,7 +268,7 @@ export class GestionTaskOwnerPage implements OnInit {
       regIdOT: actividad.regIdOt,
       regIdSubpartida: actividad.regIdSubpartida,
       regIdTask: actividad.regIdTask,
-      startDate: moment(value.detail).format('DD/MM/YYYY HH:mm'),
+      startDate: moment(value.detail.value).format('DD/MM/YYYY HH:mm'),
       finishDate: null,
       flagExcep: null,
       obsExcep: null,
@@ -309,6 +310,7 @@ export class GestionTaskOwnerPage implements OnInit {
           hhPausa: null,
           regsData: null
         }
+
         this.gestionService.putinfoownertasksubpartidaot(request).subscribe((response) => {
           if (response.code != 0) {
             this.uiService.alertInformativa(response.error);

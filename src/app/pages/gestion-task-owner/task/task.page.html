@@ -31,9 +31,10 @@
                         (click)="changeI()"
                         formControlName="dateIniCtrl"
                         [(ngModel)]="dateIni"
-                        displayFormat="DD/MM/YYYY HH:mm"
-                        dayNames="true"
+                        displayFormat="DD/MMM/YYYY HH:mm"
                         [pickerOptions]="customPickerOptionI"
+                        dayNames="true"
+                        monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic"
                         placeholder="Seleccione fecha"></ion-datetime>
           <span class="error ion-padding" *ngIf="isSubmitted && errorControl.dateIniCtrl.errors?.required">
       Requerido
@@ -45,10 +46,12 @@
             [(ngModel)]="dateFin"
             [required]="flagExcep == 0"
             formControlName="dateFinCtrl"
-            min="2021"
+            [max]="today"
+            [min]="minDate"
             [pickerOptions]="customPickerOptionF"
             (click)="changeF()"
-            displayFormat="DD/MM/YYYY HH:mm"
+            displayFormat="DD/MMM/YYYY HH:mm"
+            monthShortNames="Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic"
             placeholder="Seleccione fecha"></ion-datetime>
           <span class="error ion-padding" *ngIf="isSubmitted && errorControl.dateFinCtrl.errors?.required">
       Requerido
