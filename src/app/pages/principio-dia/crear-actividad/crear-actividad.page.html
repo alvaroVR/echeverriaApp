@@ -46,26 +46,6 @@
         <ion-label *ngIf="!formulario.proyecto.nombre" class="text-muted">Seleccione</ion-label>
       </ion-item>
 
-      <!--ion-item (click)="selectOt()" [disabled]="!formulario.ot.nombre && !otList">
-        <ion-label>
-          OT
-        </ion-label>
-        <ion-label *ngIf="formulario.ot.nombre" class="ion-text-wrap" style="font-size: small">
-          {{formulario.ot.nombre}}
-        </ion-label>
-        <ion-label *ngIf="!formulario.ot.nombre" class="text-muted">Seleccione</ion-label>
-      </ion-item>
-
-      <ion-item (click)="selectPartida()" [disabled]="!formulario.partida.nombre && !partidaList">
-        <ion-label>
-          Partida
-        </ion-label>
-        <ion-label *ngIf="formulario.partida.nombre" class="ion-text-wrap" style="font-size: small">
-          {{formulario.partida.nombre | titlecase}}
-        </ion-label>
-        <ion-label *ngIf="!formulario.partida.nombre" class="text-muted">Seleccione</ion-label>
-      </ion-item-->
-
       <ion-item>
         <ion-label style="flex: 1 1 0%;">ID Actividad</ion-label>
         <ion-input style="--padding-start: 0px;" [(ngModel)]="idActividadModel"></ion-input>

@@ -48,7 +48,6 @@ export class CrearActividadPage implements OnInit {
 
   ngOnInit() {
     this.getdomcompanies()
-    this.getdomtasksubpartidasresponsables();
   }
 
   async selectEmpresa() {
@@ -70,6 +69,9 @@ export class CrearActividadPage implements OnInit {
         this.formulario.empresa.id = data.data.respuesta.id
         this.formulario.empresa.checked = data.data.respuesta.checked
         this.warehouseList.filter(wh => wh.id === this.formulario.empresa.id && this.formulario.empresa.checked === true ? wh.checked = true : wh.checked = false);
+        this.formulario.cliente = {nombre: null, id: null, checked: false}
+        this.formulario.responsable = {nombre: null, id: null, checked: false}
+        this.formulario.dotacion = []
         this.getdomclientes()
       }
     });
@@ -94,6 +96,9 @@ export class CrearActividadPage implements OnInit {
         this.formulario.cliente.id = data.data.respuesta.id
         this.formulario.cliente.checked = data.data.respuesta.checked
         this.businessList.filter(cliente => cliente.id === this.formulario.cliente.id && this.formulario.cliente.checked === true ? cliente.checked = true : cliente.checked = false);
+        this.formulario.proyecto = {nombre: null, id: null, checked: false}
+        this.formulario.responsable = {nombre: null, id: null, checked: false}
+        this.formulario.dotacion = []
         this.getdomproyectos()
       }
     });
@@ -118,6 +123,8 @@ export class CrearActividadPage implements OnInit {
         this.formulario.proyecto.id = data.data.respuesta.id;
         this.formulario.proyecto.checked = data.data.respuesta.checked;
         this.projectList.filter(proyecto => proyecto.id === this.formulario.proyecto.id && this.formulario.proyecto.checked === true ? proyecto.checked = true : proyecto.checked = false);
+        this.formulario.responsable = {nombre: null, id: null, checked: false}
+        this.formulario.dotacion = []
         //this.getdetactivitypplan();
         //this.getdetlistot();
       }
@@ -173,6 +180,7 @@ export class CrearActividadPage implements OnInit {
   }
 
   async selectResponsable() {
+    await this.getdomtasksubpartidasresponsables();
     const modal = await this.modalController.create({
       component: ModalComponent,
       componentProps: {
@@ -248,6 +256,7 @@ export class CrearActividadPage implements OnInit {
         nombre: proyecto[0].nombre,
         checked: true
       }
+      this.getdomtasksubpartidasresponsables();
     });
   }
 
@@ -300,18 +309,21 @@ export class CrearActividadPage implements OnInit {
     })
   }
 
-  getdomtasksubpartidasresponsables() {
-    const request = {
-      userId: this.authService.company,
-      companyIdUsr: this.authService.user,
-      companyIdSelect: this.formulario.empresa.id,
-      clientId: this.formulario.cliente.id,
-      projectId: this.formulario.proyecto.id,
-    };
+  async getdomtasksubpartidasresponsables() {
+    return new Promise(((resolve, reject) => {
+      const request = {
+        userId: this.authService.company,
+        companyIdUsr: this.authService.user,
+        companyIdSelect: this.formulario.empresa.id,
+        clientId: this.formulario.cliente.id,
+        projectId: this.formulario.proyecto.id,
+      };
 
-    this.principioService.getdomtasksubpartidasresponsables(request).subscribe((response) => {
-      this.responsablesList = response.detalles
-    });
+      this.principioService.getdomtasksubpartidasresponsables(request).subscribe((response) => {
+        this.responsablesList = response.detalles
+        resolve()
+      });
+    }))
   }
 
   getlvdotdatetasksubpartidaot() {
