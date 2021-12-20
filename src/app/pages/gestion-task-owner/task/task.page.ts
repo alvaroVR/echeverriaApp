@@ -59,7 +59,7 @@ export class TaskPage implements OnInit {
       }, {
         text: 'Guardar',
         handler: (val) => {
-          this.dateFin = `${val.year.text}-${val.month.text}-${val.day.text} ${val.hour.text}:${val.minute.text}:00`
+          this.dateFin = `${val.year.text}-${val.month.value}-${val.day.text} ${val.hour.text}:${val.minute.text}:00`
         }
       }]
     }
@@ -107,6 +107,7 @@ export class TaskPage implements OnInit {
           hhPausa: this.pausaModel === undefined || this.pausaModel === null ? 0 : this.pausaModel,
           regsData: this.dotacion.map(dot => ({dni: dot.id}))
         }
+        debugger
         if (request.flagExcep === undefined) {
           delete request.flagExcep;
         }
