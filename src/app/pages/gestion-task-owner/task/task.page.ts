@@ -37,7 +37,8 @@ export class TaskPage implements OnInit {
               public authService: AuthService, public formBuilder: FormBuilder, public alertMsg: UiserviceService) {
     this.activatedRoute.queryParams.subscribe((r: any) => {
       this.actividad = r
-      this.dateIni = this.actividad.inicio
+      this.dateIni = moment(this.actividad.inicio).format('YYYY-MM-DD HH:mm:ss')
+        debugger
     })
 
     this.customPickerOptionI = {
@@ -107,7 +108,6 @@ export class TaskPage implements OnInit {
           hhPausa: this.pausaModel === undefined || this.pausaModel === null ? 0 : this.pausaModel,
           regsData: this.dotacion.map(dot => ({dni: dot.id}))
         }
-        debugger
         if (request.flagExcep === undefined) {
           delete request.flagExcep;
         }
