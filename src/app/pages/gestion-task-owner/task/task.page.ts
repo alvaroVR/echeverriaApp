@@ -38,7 +38,6 @@ export class TaskPage implements OnInit {
     this.activatedRoute.queryParams.subscribe((r: any) => {
       this.actividad = r
       this.dateIni = moment(this.actividad.inicio).format('YYYY-MM-DD HH:mm:ss')
-        debugger
     })
 
     this.customPickerOptionI = {
