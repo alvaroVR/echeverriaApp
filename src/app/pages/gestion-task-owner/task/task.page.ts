@@ -29,30 +29,36 @@ export class TaskPage implements OnInit {
   customPickerOptionI
   customPickerOptionF
   today = new Date().toISOString();
-  minDate = new Date((new Date().getFullYear()), new Date().getMonth() - 2, new Date().getDate()).toISOString();
+  minMaxDate = moment(new Date()).format('YYYY-MM-DD')
   formattedToday = moment(this.today).format('DD/MM/YYYY')
 
   constructor(public router: Router, public navCtrl: NavController, public activatedRoute: ActivatedRoute,
               private modalController: ModalController, public gestionService: GestionTaskOwnerService,
               public authService: AuthService, public formBuilder: FormBuilder, public alertMsg: UiserviceService) {
+   // moment.locale('es')
     this.activatedRoute.queryParams.subscribe((r: any) => {
       this.actividad = r
       this.dateIni = moment(this.actividad.inicio).format('YYYY-MM-DD HH:mm:ss')
     })
 
     this.customPickerOptionI = {
+      backdropDismiss: false,
       buttons: [{
         text: 'Limpiar',
-        handler: () => this.taskForm.controls['dateIniCtrl'].setValue(null)
+        handler: () => {
+          this.taskForm.controls['dateIniCtrl'].setValue(null)
+          this.taskForm.controls['dateFinCtrl'].setValue(null)
+        }
       }, {
         text: 'Guardar',
         handler: (val) => {
-          this.dateIni = `${val.year.text}-${val.month.text}-${val.day.text} ${val.hour.text}:${val.minute.text}:00`
+          this.dateIni = `${val.year.text}-${val.month.value}-${val.day.text} ${val.hour.text}:${val.minute.text}:00`
         }
       }]
     }
 
     this.customPickerOptionF = {
+      backdropDismiss: false,
       buttons: [{
         text: 'Limpiar',
         handler: () => this.taskForm.controls['dateFinCtrl'].setValue(null)
@@ -61,7 +67,7 @@ export class TaskPage implements OnInit {
         handler: (val) => {
           this.dateFin = `${val.year.text}-${val.month.value}-${val.day.text} ${val.hour.text}:${val.minute.text}:00`
         }
-      }]
+      }],
     }
 
   }
@@ -98,8 +104,8 @@ export class TaskPage implements OnInit {
           regIdOT: this.actividad.regIdOt,
           regIdSubpartida: this.actividad.regIdSubpartida,
           regIdTask: this.actividad.regIdTask,
-          startDate: this.dateIni === undefined || this.dateIni === null ? null : moment(this.dateIni).format('DD/MM/YYYY HH:mm'),
-          finishDate: this.dateFin === undefined || this.dateFin === null ? null : moment(this.dateFin).format('DD/MM/YYYY HH:mm'),
+          startDate: !this.dateIni ? null : moment(this.dateIni).format('DD/MM/YYYY HH:mm'),
+          finishDate: !this.dateFin  ? null : moment(this.dateFin).format('DD/MM/YYYY HH:mm'),
           flagExcep: this.flagExcep,
           obsExcep: this.obsExcep,
           fechaEjec: this.actividad.fecha,
@@ -113,6 +119,9 @@ export class TaskPage implements OnInit {
         if (request.obsExcep === undefined) {
           delete request.obsExcep;
         }
+        request
+        debugger
+        return
         this.gestionService.putinfoownertasksubpartidaot(request).subscribe((response) => {
           if (response.code != 0) {
             this.alertMsg.alertInformativa(response.error);
@@ -141,6 +150,7 @@ export class TaskPage implements OnInit {
     //var date = new Date((new Date().getFullYear()), new Date().getMonth(), new Date().getDate()).setHours(18)
     //const datesF = new Date(date).toISOString();
     const datesF = moment().format('DD/MMM/YYYY 18:00')
+
     if (this.dateFin) {
       return
     }

@@ -26,7 +26,7 @@
         <ion-item>
           <ion-label>Inicio</ion-label>
           <ion-datetime value=""
-                        min="2021"
+                        min="2022"
                         [required]="flagExcep == 0 || !flagExcep"
                         (click)="changeI()"
                         formControlName="dateIniCtrl"
@@ -46,7 +46,9 @@
             [(ngModel)]="dateFin"
             [required]="flagExcep == 0"
             formControlName="dateFinCtrl"
-            [min]="minDate"
+            [disabled]="!dateIni"
+            [min]="minMaxDate"
+            [max]="minMaxDate"
             [pickerOptions]="customPickerOptionF"
             (click)="changeF()"
             displayFormat="DD/MMM/YYYY HH:mm"
