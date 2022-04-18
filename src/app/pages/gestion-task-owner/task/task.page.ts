@@ -119,9 +119,7 @@ export class TaskPage implements OnInit {
         if (request.obsExcep === undefined) {
           delete request.obsExcep;
         }
-        request
-        debugger
-        return
+
         this.gestionService.putinfoownertasksubpartidaot(request).subscribe((response) => {
           if (response.code != 0) {
             this.alertMsg.alertInformativa(response.error);
