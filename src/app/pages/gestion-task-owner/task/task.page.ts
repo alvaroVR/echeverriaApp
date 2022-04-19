@@ -29,16 +29,17 @@ export class TaskPage implements OnInit {
   customPickerOptionI
   customPickerOptionF
   today = new Date().toISOString();
-  minMaxDate = moment(new Date()).format('YYYY-MM-DD')
+  minMaxDate;
   formattedToday = moment(this.today).format('DD/MM/YYYY')
 
   constructor(public router: Router, public navCtrl: NavController, public activatedRoute: ActivatedRoute,
               private modalController: ModalController, public gestionService: GestionTaskOwnerService,
               public authService: AuthService, public formBuilder: FormBuilder, public alertMsg: UiserviceService) {
-   // moment.locale('es')
+    // moment.locale('es')
     this.activatedRoute.queryParams.subscribe((r: any) => {
       this.actividad = r
       this.dateIni = moment(this.actividad.inicio).format('YYYY-MM-DD HH:mm:ss')
+      this.minMaxDate = moment(this.actividad.inicio).format('YYYY-MM-DD')
     })
 
     this.customPickerOptionI = {
@@ -105,7 +106,7 @@ export class TaskPage implements OnInit {
           regIdSubpartida: this.actividad.regIdSubpartida,
           regIdTask: this.actividad.regIdTask,
           startDate: !this.dateIni ? null : moment(this.dateIni).format('DD/MM/YYYY HH:mm'),
-          finishDate: !this.dateFin  ? null : moment(this.dateFin).format('DD/MM/YYYY HH:mm'),
+          finishDate: !this.dateFin ? null : moment(this.dateFin).format('DD/MM/YYYY HH:mm'),
           flagExcep: this.flagExcep,
           obsExcep: this.obsExcep,
           fechaEjec: this.actividad.fecha,
@@ -147,7 +148,7 @@ export class TaskPage implements OnInit {
   changeF() {
     //var date = new Date((new Date().getFullYear()), new Date().getMonth(), new Date().getDate()).setHours(18)
     //const datesF = new Date(date).toISOString();
-    const datesF = moment().format('DD/MMM/YYYY 18:00')
+    const datesF = moment(this.dateIni).format('DD/MMM/YYYY 18:00')
 
     if (this.dateFin) {
       return
